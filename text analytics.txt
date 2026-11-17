@@ -1,0 +1,418 @@
+# Notebook-A7: Text Analytics – Viva Preparation
+
+I'll explain this notebook in simple English, step by step, just like a practical viva. It uses NLTK and Python to perform text preprocessing and analysis.
+
+## 1. What is Text Analytics?
+
+Text Analytics is the process of extracting useful information from text data.
+
+For example:
+
+- Analysing customer reviews.
+- Detecting positive or negative tweets.
+- Analysing social media comments.
+- Finding frequently used words.
+
+In simple words: Text Analytics means making computers understand and analyse human language.
+
+## 2. Aim of the practical
+
+To perform different text preprocessing techniques using Python and NLTK.
+
+The notebook covers:
+
+1. Sentence Tokenization
+2. Word Tokenization
+3. Removing Punctuation
+4. Removing Stop Words
+5. Stemming
+6. Lemmatization
+7. POS Tagging
+8. TF-IDF
+
+## 3. Libraries used
+
+```
+import nltkfrom nltk.tokenize import *from nltk.corpus import *from nltk.stem import *import re
+```
+
+| Library  | Purpose                               |
+| -------- | ------------------------------------- |
+| NLTK     | Natural Language Processing           |
+| Tokenize | Splits text into tokens               |
+| Corpus   | Provides language resources           |
+| Stem     | Provides stemming and lemmatization   |
+| re       | Regular expressions for text cleaning |
+
+Viva question: What is NLTK?
+
+NLTK stands for Natural Language Toolkit. It is a Python library used for Natural Language Processing.
+
+## 4. Explanation of every operation
+
+### A. Downloading NLTK resources
+
+```
+nltk.download('all')
+```
+
+It downloads all available NLTK datasets and resources.
+
+The notebook also mentions specific downloads:
+
+- `punkt` – Tokenization.
+- `stopwords` – Common words.
+- `wordnet` – Dictionary database.
+- `averaged_perceptron_tagger` – POS tagging.
+
+Viva: Why do we download NLTK resources?
+
+Answer: To access the datasets and language-processing models required by NLTK functions.
+
+### B. Sentence Tokenization
+
+Important
+
+```
+var1 = sent_tokenize(text)print(var1)
+```
+
+Sentence Tokenization means splitting a paragraph into individual sentences.
+
+Input
+
+Hello everyone! I am a student. I like Python.
+
+Output
+
+```
+[  'Hello everyone!',  'I am a student.',  'I like Python.']
+```
+
+Viva: What is the purpose of sentence tokenization?
+
+Answer: It divides a paragraph into separate sentences.
+
+### C. Word Tokenization
+
+```
+var2 = word_tokenize(text)print(var2)
+```
+
+It divides a sentence into individual words and punctuation tokens.
+
+Example:
+
+Input:\
+`I love Python!`
+
+Output:
+
+```
+['I', 'love', 'Python', '!']
+```
+
+Difference between sentence and word tokenization:
+
+| Sentence Tokenization           | Word Tokenization          |
+| ------------------------------- | -------------------------- |
+| Splits paragraph into sentences | Splits sentence into words |
+| Uses `sent_tokenize()`          | Uses `word_tokenize()`     |
+
+### D. Removing Punctuation
+
+```
+text = re.sub('[^a-zA-Z]', ' ', text)
+```
+
+It removes characters that are not English letters and replaces them with spaces.
+
+Example:
+
+Input:
+
+```
+Hello! I love Python 123.
+```
+
+Output:
+
+```
+Hello  I love Python
+```
+
+Viva: What is Regular Expression?
+
+Answer: Regular Expression (Regex) is a pattern used to search, match, or replace characters in text.
+
+### E. Removing Stop Words
+
+Very Important
+
+```
+var3 = set(stopwords.words('english'))tokens = word_tokenize(text.lower())filtered_text = []for word in tokens:    if word not in var3:        filtered_text.append(word)
+```
+
+Stop words are commonly used words that usually carry less information for a particular text analysis task.
+
+Examples:
+
+- is
+- am
+- the
+- a
+- an
+- and
+- of
+
+Example:
+
+Input:\
+`I am learning Python`
+
+Output:\
+`['learning', 'python']`
+
+Why remove stop words?
+
+To reduce unnecessary words and focus on meaningful terms.
+
+### F. Stemming
+
+```
+ps = PorterStemmer()var = ["write", "writing", "wrote",       "writes", "reading", "reads"]for w in var:    print(ps.stem(w))
+```
+
+Stemming means reducing words to their root-like form by removing word endings.
+
+Output from your notebook:
+
+```
+write
+write
+wrote
+write
+read
+read
+```
+
+Important: Stemming does not always produce a meaningful dictionary word.
+
+Example:
+
+- Playing → Play
+- Reading → Read
+- Writes → Write
+
+### G. Lemmatization
+
+```
+wordnet_lemmatizer = WordNetLemmatizer()text = "studies studying cries cry"tt = nltk.word_tokenize(text)for w in tt:    print(wordnet_lemmatizer.lemmatize(w))
+```
+
+Lemmatization converts words into their meaningful dictionary base form.
+
+Output:
+
+```
+studies → study
+studying → studying
+cries → cry
+cry → cry
+```
+
+Difference between Stemming and Lemmatization:
+
+| Stemming                  | Lemmatization                |
+| ------------------------- | ---------------------------- |
+| Removes word endings      | Finds dictionary base form   |
+| May produce invalid words | Produces meaningful words    |
+| Faster                    | More linguistically accurate |
+| Uses PorterStemmer        | Uses WordNetLemmatizer       |
+
+### H. POS Tagging
+
+Important for viva
+
+POS stands for Part of Speech.
+
+It identifies whether a word is a noun, verb, adjective, etc.
+
+Code:
+
+```
+text = "Hello everyone this is a sample text! Earth."text = nltk.word_tokenize(text)nltk.pos_tag(text)
+```
+
+Output examples:
+
+```
+('Hello', 'NNP')('everyone', 'NN')('is', 'VBZ')('sample', 'JJ')('text', 'NN')
+```
+
+Common POS tags:
+
+| Tag | Meaning                      |
+| --- | ---------------------------- |
+| NN  | Noun                         |
+| NNP | Proper Noun                  |
+| VB  | Verb                         |
+| VBZ | Verb (third-person singular) |
+| JJ  | Adjective                    |
+| RB  | Adverb                       |
+| DT  | Determiner                   |
+| IN  | Preposition                  |
+
+Viva: Why is POS tagging used?
+
+Answer: To identify the grammatical category of each word in a sentence.
+
+### I. TF-IDF
+
+Most important
+
+TF-IDF stands for Term Frequency–Inverse Document Frequency.
+
+It is used to calculate how important a word is in a document compared to a collection of documents.
+
+Your notebook uses:
+
+```
+from sklearn.feature_extraction.text import TfidfVectorizernew_sentence = "This is an example of term frequency. Meow meow meow meow meow!"def calculate_tfIdf(document):    tokenizer = TfidfVectorizer()    tf_matrix = tokenizer.fit_transform(document)    features_names = tokenizer.get_feature_names_out()    return tf_matrix, features_namesdocument = [new_sentence]tf_matrix, feature_names = calculate_tfIdf(document)print('TF-IDF')print(feature_names, tf_matrix.toarray())
+```
+
+How does it work?
+
+- TF (Term Frequency): How frequently a word appears in a document.
+- IDF (Inverse Document Frequency): Measures how rare or common a word is across documents.
+- TF-IDF: Gives a higher importance to words that are frequent in a document but less common across the collection.
+
+Your notebook output:
+
+Important observation
+
+# 0.8839
+
+TF-IDF score for the word "meow"
+
+The word `meow` appears five times, so it receives a higher score than the other words in this single-document example.
+
+Viva: Where is TF-IDF used?
+
+Answer:
+
+- Search engines.
+- Document classification.
+- Text mining.
+- Information Retrieval.
+- News categorization.
+
+## 5. Most important viva questions and answers
+
+These are the questions you should prepare first.
+
+| Question                       | Short answer                                                |
+| ------------------------------ | ----------------------------------------------------------- |
+| What is NLP?                   | Natural Language Processing.                                |
+| What is Text Analytics?        | Analysing text to extract useful information.               |
+| What is NLTK?                  | Python library for NLP.                                     |
+| What is tokenization?          | Splitting text into smaller units.                          |
+| What are tokens?               | Individual words or sentences produced by tokenization.     |
+| What are stop words?           | Common words that may carry less useful information.        |
+| What is stemming?              | Reducing words to root-like forms.                          |
+| What is lemmatization?         | Converting words into dictionary base forms.                |
+| What is POS tagging?           | Identifying grammatical categories of words.                |
+| What is TF-IDF?                | Measuring the importance of words in documents.             |
+| What is Regex?                 | Pattern matching for text processing.                       |
+| What is WordNet?               | A lexical database of English words.                        |
+| What is PorterStemmer?         | An algorithm used for stemming.                             |
+| What is TfidfVectorizer?       | A Scikit-learn tool for calculating TF-IDF.                 |
+| Why convert text to lowercase? | To treat uppercase and lowercase versions as the same word. |
+
+## 6. Practical workflow – remember this diagram
+
+Input Text
+
+Sentence & Word Tokenization
+
+Text Cleaning
+
+Remove punctuation and stop words
+
+Stemming & Lemmatization
+
+POS Tagging & TF-IDF
+
+Processed Text / Numerical Features
+
+## 7. Test yourself – viva practice
+
+Let's check whether you understood the practical.
+
+5 Viva MCQs
+
+0/5 answered
+
+Q1. Which function is used for sentence tokenization?
+
+word_tokenize()
+
+sent_tokenize()
+
+pos_tag()
+
+stem()
+
+
+
+Q2. What does NLTK stand for?
+
+Natural Language Toolkit
+
+Natural Learning Tool Kit
+
+New Language Text Kit
+
+Natural Logic Toolkit
+
+
+
+Q3. Which technique removes common words like 'is', 'the' and 'am'?
+
+Stemming
+
+POS Tagging
+
+Stop Word Removal
+
+TF-IDF
+
+
+
+Q4. Which technique finds the dictionary base form of a word?
+
+Tokenization
+
+Lemmatization
+
+Regex
+
+TF-IDF
+
+
+
+Q5. What does TF-IDF calculate?
+
+Number of sentences
+
+Word importance
+
+Number of characters
+
+Grammar errors
+
+
+
+Submit answers
+
+Final viva tip: Focus especially on the differences between stemming and lemmatization, sentence and word tokenization, stop word removal, POS tagging, and TF-IDF. These are the core concepts demonstrated in your notebook.

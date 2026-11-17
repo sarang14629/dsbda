@@ -1,0 +1,719 @@
+# Notebook-A8: Data Visualization – 1
+
+I'll explain this notebook in simple English, just like a teacher explaining it before a practical viva. We'll cover every code, graph, output and important viva question.
+
+
+
+Viva preparation
+
+Beginner friendly
+
+
+
+## 1. What is the practical about?
+
+This practical demonstrates Data Visualization using Python.
+
+Data visualization means representing data in graphical form so that we can understand patterns, trends and relationships easily.
+
+In this notebook, we use the Titanic dataset to create different types of graphs.
+
+Example: Instead of reading the ages of 891 Titanic passengers one by one, we can display their ages in a graph.
+
+## 2. Libraries used
+
+```
+import seaborn as snsfrom matplotlib import pyplot as plt
+```
+
+There are two libraries:
+
+| Library    | Purpose                      |
+| ---------- | ---------------------------- |
+| Seaborn    | Creates statistical graphs   |
+| Matplotlib | Displays and controls graphs |
+
+Viva question: What is Seaborn?
+
+Answer: Seaborn is a Python library used for statistical data visualization. It is built on Matplotlib.
+
+## 3. Loading the Titanic dataset
+
+```
+df = sns.load_dataset('titanic')df.head()
+```
+
+Explanation:
+
+- `sns.load_dataset('titanic')` loads the Titanic dataset.
+- `df` stores the dataset in a DataFrame.
+- `df.head()` displays the first five rows.
+
+[Analisi esplorativa dei dati: la guida completa](https://images.openai.com/static-rsc-4/RhpGJuhXgZCP_-idSuqdU1CyVFluIv0ALg1fzWoDJHsW09z-LPs0CpinEC8MtKaHvIUmVMNUVHetP3RUcxpO5Na9C8_oFkph9qkPxxYaAVfW_IcEOsZ8DIQmUGhsT9isWMeKodH3d3y2LO4WlXvn1MgQZcknzuYnMEV6MCkhwoU?purpose=inline)
+
+[yimp.it](https://www.yimp.it/analisi-esplorativa-dei-dati/?utm_source=chatgpt.com)
+
+Important columns:
+
+| Column   | Meaning           |
+| -------- | ----------------- |
+| survived | 0 = No, 1 = Yes   |
+| pclass   | Passenger class   |
+| sex      | Male or female    |
+| age      | Passenger age     |
+| fare     | Ticket price      |
+| embarked | Boarding location |
+
+Viva question: What is a DataFrame?
+
+Answer: A DataFrame is a two-dimensional tabular data structure provided by Pandas.
+
+## 4. Distribution Plot (Displot)
+
+Code:
+
+```
+plt.figure(figsize=(6,4))sns.displot(df['age'])plt.show()
+```
+
+[Visualizing Distributions with Histograms Using Seaborn | CodeSignal Learn](https://images.openai.com/static-rsc-4/b1xm0VZP9f3R5013RV5zav7tuscVVLkvrVqPUVOEn5x5YFcMJVnObzKoPF66O3EXNmui49Ijbh0Z9Oj7FRUOxQTr9NO6RO7dVA7pT1iq0YQhgrDCglHAbdndyYy0x4gDySjWWSAxx4MA9xK4kEeE4mIm7m2OlihLq6wwcoSx6aE?purpose=inline)
+
+[codesignal.com](https://codesignal.com/learn/courses/intro-to-data-visualization-with-titanic/lessons/visualizing-distributions-with-histograms-using-seaborn?utm_source=chatgpt.com)
+
+Explanation:
+
+- `plt.figure(figsize=(6,4))` specifies figure size.
+- `sns.displot(df['age'])` displays the distribution of passenger ages.
+- `plt.show()` displays the graph.
+
+What does this graph show?
+
+Most passengers were between approximately 20 and 40 years old.
+
+Viva questions:
+
+1. What is a distribution plot?
+
+   It shows how values are distributed in a dataset.
+2. What is the X-axis?
+
+   Age of passengers.
+3. What is the Y-axis?
+
+   Number of passengers (count).
+4. What is a histogram?
+
+   A graph that represents numerical data using rectangular bars.
+
+## 5. Box Plot
+
+Code:
+
+```
+plt.figure(figsize=(5,3))bp = sns.boxplot(    x='class',    y='age',    palette='pastel',    data=df)plt.show()df.describe().transpose()
+```
+
+[A Complete Guide to Plotting Categorical Variables with Seaborn | by Will Norris | TDS Archive | Medium](https://images.openai.com/static-rsc-4/u0PEnlIS_4ZPHda5DAVHIxk0k1zLIj2vVcn3VwEau5OjXW4zuXh6rW6h9ytQq9h38MhxbP-DFPoDaA-8F4zBHSHHiIzUUDGVnpF8jrvnvGKKlsg_nDpw72jxkEVo2DLs6jzulh9mPchMiayT6_Tni0N0pxx2oeucKGoDi2eQl_s?purpose=inline)
+
+[medium.com](https://medium.com/data-science/a-complete-guide-to-plotting-categorical-variables-with-seaborn-bfe54db66bec?utm_source=chatgpt.com)
+
+Explanation:
+
+A box plot represents the distribution of numerical data using a box, median line, whiskers and outliers.
+
+- X-axis: Passenger class.
+- Y-axis: Passenger age.
+- `palette='pastel'`: Gives pastel colors.
+- `df.describe()`: Displays statistical information.
+- `.transpose()`: Converts rows into columns and columns into rows.
+
+Understand the box plot:
+
+- Middle line = Median.
+- Box = Middle 50% of data.
+- Whiskers = Data range excluding outliers.
+- Circles = Outliers.
+
+Viva questions:
+
+1. What is a box plot?
+
+   It is used to understand data distribution and identify outliers.
+2. What is an outlier?
+
+   An unusually high or low value compared with other values.
+3. What is median?
+
+   The middle value of sorted data.
+4. What is IQR?
+
+   Interquartile Range = Q3 − Q1.
+
+## 6. Violin Plot
+
+Code:
+
+```
+plt.figure(figsize=(5,4))vp = sns.violinplot(    x='class',    y='age',    palette='rainbow',    data=df)plt.show()
+```
+
+[\[머신러닝/딥러닝\] 데이터를 한눈에 주요 시각화 그래프](https://images.openai.com/static-rsc-4/eIaz_JwHFlLqEDlSRANQNqImSFSISip6lXnvYhVzj1lLNrxfqY7QklW4yr1VqRdkoPozF5CvcYpB0lbduSXqLSmKjIzZRGShl2HGDceXfSRCfZXSQvzsQNoBsOwBgL9eDP4j-CIH9hqYrpoZLYVjK8cY7d_fKn-383hIDcvZyvY?purpose=inline)
+
+[vulter3653.tistory.com](https://vulter3653.tistory.com/21?utm_source=chatgpt.com)
+
+Explanation:
+
+A violin plot combines a box plot and a density plot.
+
+It shows:
+
+- Distribution of passenger ages.
+- Where most passengers are concentrated.
+- How the age distribution differs between classes.
+
+Remember: Wider parts indicate more data concentration.
+
+Viva questions:
+
+1. What is a violin plot?
+
+   It represents data distribution and density.
+2. Difference between box plot and violin plot?
+
+   Box plot shows median, quartiles and outliers. Violin plot additionally shows the shape of the distribution.
+3. What is KDE?
+
+   Kernel Density Estimation. It estimates the probability density distribution of data.
+
+## 7. Histogram Plot
+
+Code:
+
+```
+plt.figure(figsize=(5,4))pq = sns.histplot(    x='fare',    bins=10,    data=df,    hue='survived',    kde=False)for i in pq.containers:    pq.bar_label(i)plt.show()
+```
+
+[Seaborn Titanic Dataset Exploration | Mike Polinowski](https://images.openai.com/static-rsc-4/JoUUlj5CnFZiWxbLcRr_ymfNmg2MXwAAnz2X19nPYZdBxuPy0F8ChuhErs9jYqEqzlvgr0riCQLOmwo02FMfJOWk3HY6nMXfF3Lm1hxE2SqLNExX_2FSP0E6F3-XqaHlCvAgYX8KwXz9flESMhIlWbTc2mmAgqSYp_G5Fs6Jhf4?purpose=inline)
+
+[mpolinowski.github.io](https://mpolinowski.github.io/docs/Development/Python/2023-05-12-matplotlib-seaborn-titanic-dataset/2023-05-12/?utm_source=chatgpt.com)
+
+Explanation:
+
+- `x='fare'`: Displays ticket prices.
+- `bins=10`: Divides data into 10 intervals.
+- `hue='survived'`: Separates passengers by survival status.
+- `kde=False`: Disables density curve.
+- `bar_label()`: Displays values on bars.
+
+What does this graph show?
+
+Most passengers paid lower ticket fares. The graph compares passengers who survived and those who did not survive.
+
+Viva questions:
+
+1. What is a histogram?
+
+   It represents the frequency distribution of numerical data.
+2. What is bins?
+
+   Bins are intervals used to divide numerical data.
+3. What is hue?
+
+   Hue adds different colors to distinguish categories.
+4. What is the difference between histogram and bar chart?
+
+   Histogram represents numerical intervals, while a bar chart compares categories.
+
+## 8. Scatter Plot
+
+Code:
+
+```
+plt.figure(figsize=(5,4))st = sns.scatterplot(    x='age',    y='fare',    data=df)plt.show()
+```
+
+[Seaborn for Data Analysis | Resagratia Data Analytics And Data Science Bootcamp](https://images.openai.com/static-rsc-4/zq2CvozSNrhqRPMG3vhqEAaY1QdK1jEvAOreX-ijWu3JEwUuV2FLYzXc6PGzE14ZurRSVM-e6xpTvBqQvAkpRwHODFe3pfLE5bRCHyuM42nCPT-AeHPWmDBxl0gUWE4SO0C07tzGcU0uJkQEQPGVA5JnqYGqYZtW4R7RLdTHKT8?purpose=inline)
+
+[resagratia.com](https://resagratia.com/resources/blog/seaborn-for-data-analysis?utm_source=chatgpt.com)
+
+Explanation:
+
+A scatter plot represents the relationship between two numerical variables.
+
+- X-axis = Age.
+- Y-axis = Fare.
+- Each dot = One passenger.
+
+What does it show?
+
+It helps us understand whether passenger age and ticket fare have any relationship.
+
+Viva questions:
+
+1. What is a scatter plot?
+
+   It shows the relationship between two numerical variables using dots.
+2. What does each dot represent?
+
+   One observation or passenger.
+3. What is correlation?
+
+   Correlation measures the relationship between two variables.
+
+## 9. Scatter Plot with Hue
+
+Code:
+
+```
+plt.figure(figsize=(5,4))kl = sns.scatterplot(    x='age',    y='fare',    data=df,    hue='survived')plt.show()
+```
+
+[Seaborn for Data Analysis | Resagratia Data Analytics And Data Science Bootcamp](https://images.openai.com/static-rsc-4/ViTDzFw7UxnA4hCVPNHWUUwULWZ7P93sHBe1hIppsM02vBZHutu4drFuKwsld6m9kdueuSLsX_5kNfV-zBVZMp2Gw6EqT__K_0BAxJ4zJHm7RLGp1kcOdFGkzQx_0IrhRcXRQLPU2JTuN164vRVcxl2rR9v62Woct6BBxWPJByU?purpose=inline)
+
+[resagratia.com](https://resagratia.com/resources/blog/seaborn-for-data-analysis?utm_source=chatgpt.com)
+
+Explanation:
+
+This is similar to the previous scatter plot, but we added:
+
+```
+hue='survived'
+```
+
+It separates passengers into two groups:
+
+- Blue = Did not survive (0).
+- Orange = Survived (1).
+
+This helps us compare survival status according to passenger age and fare.
+
+## 10. Important viva questions and answers
+
+These are the questions you should prepare first.
+
+| Question                    | Short answer                               |
+| --------------------------- | ------------------------------------------ |
+| What is data visualization? | Representing data graphically.             |
+| Which dataset is used?      | Titanic dataset.                           |
+| Which libraries are used?   | Seaborn and Matplotlib.                    |
+| What is Seaborn?            | Statistical visualization library.         |
+| What is Matplotlib?         | Python plotting library.                   |
+| What is histogram?          | Shows frequency distribution.              |
+| What is box plot?           | Shows quartiles, median and outliers.      |
+| What is violin plot?        | Shows data distribution and density.       |
+| What is scatter plot?       | Shows relationships between two variables. |
+| What is hue?                | Separates categories using colors.         |
+| What is figsize?            | Specifies graph dimensions.                |
+| What is `plt.show()`?       | Displays the graph.                        |
+| What is `df.head()`?        | Displays first five rows.                  |
+| What is `df.describe()`?    | Gives statistical summary.                 |
+| What is KDE?                | Kernel Density Estimation.                 |
+
+## 11. Quick revision: All graphs
+
+[3.8. Histograms — Introduction to College Engineering](https://images.openai.com/static-rsc-4/5RPfyL8AaslvMV_IznuvtQnrKWfX5-bKwLB8o_rnsskK6ZBLWQ4CCZN8xWyf3rF4YIs85pGFgR04gVIPCFtAZWMn-4-ebEifvlvDjCCZh8BPJwrnN8H1IXvi0Gz-HhdRkunDxcd4YF5mrWIqZrZNg7jBsm_IJOqYPaeLZtN5N9Q?purpose=inline)
+
+1\. Distribution Plot
+
+Shows how data is distributed.
+
+[Graphical Representations of Summary Statistics Chapter Notes - AP Statistics - Grade 9 PDF Download](https://images.openai.com/static-rsc-4/EAG8edpQYv8BRceM-RGoIdnjCHr4BhZDrYVsXtPuGusFTQdb50eZTjZ5IKq-GV7SsXceasIbduxXf42bbw1o8q4ObqAOBZoO4L1T4I1Caks3xkYAnL-LWbd8sBog_UEF2Ta_CFZI4f1efxaTj2a8uUBKpu8BMxyE_BTlBjzMHRg?purpose=inline)
+
+2\. Box Plot
+
+Shows median, quartiles and outliers.
+
+[Data Visualization with Seaborn – datanovia](https://images.openai.com/static-rsc-4/arE2_zKxgo_Pw4S9IasydTM6MXoXiacGbgbHfbP5gaKBqaT_Wxr5TK3XRWBBrnN0usIPjAURNcLWgBawRnHfBDHorsf6fAZ-AgidUyNGAgx8K-u8txKGIQsJkQtiQmS4q9g4GtxshwzeN-rmH8tHHo-T6IFkNKKDNKa2akVY-3U?purpose=inline)
+
+3\. Violin Plot
+
+Shows data density and distribution.
+
+[What is a histogram? | HK Playground](https://images.openai.com/static-rsc-4/J7IXvev6Z_Wy-X8SC9jzgrGHakHJcNc6TwmUN4bFEFKdyqUQ6qDHrBwaZ7BggBQedc-uGUQiGiNzLrMDya2uPYuQdFh7auIaY3coDnN8RWPApLWX9iI7pMF2TfdIvmQpx2_D9_htrZJdhUz4E6FxaJiMBQy7uB2kPDlb3INgngA?purpose=inline)
+
+4\. Histogram
+
+Shows frequency using intervals.
+
+[What Are the 7 Basic Quality Tools? | Lucidchart Blog](https://images.openai.com/static-rsc-4/V58AbzrBtpt4f003xI55M2KlwgMIEtqVdSMVL3CUHyUbWQBc4Ga9cQOWko7TyATUuXf6A9dF-SBh7h1ql1qAXbWqY-j69lU7cyMXfx-YMAotbXs1m7tBtz51es2Na65e_YzAkVCBYJHgIl-OFcj1QTaxLNdQeZCL2OFHIcG_Vyk?purpose=inline)
+
+5\. Scatter Plot
+
+Shows relationships between variables.
+
+## 12. Test your viva preparation
+
+Let's check whether you understood the practical. Try answering without looking at the notes.
+
+Viva mini-test
+
+0/5 answered
+
+Q1. Which dataset is used in this notebook?
+
+Iris
+
+Titanic
+
+Boston
+
+Housing
+
+Q2. Which graph is used to identify outliers?
+
+Scatter plot
+
+Histogram
+
+Box plot
+
+Pie chart
+
+Q3. What does hue='survived' do?
+
+Changes age
+
+Separates survival categories by color
+
+Removes missing values
+
+Sorts fares
+
+Q4. What does bins=10 mean?
+
+10 datasets
+
+10 columns
+
+10 intervals
+
+10 graphs
+
+Q5. Which library is used for statistical visualization?
+
+Seaborn
+
+OS
+
+Random
+
+Time
+
+Submit answers
+
+My viva tip: Pay special attention to the difference between histogram, box plot, violin plot and scatter plot. These are important concepts in this practical.
+
+
+These images show different Data Visualization techniques using Python, Pandas, Matplotlib and Seaborn on the Titanic dataset.
+
+I'll explain each graph in simple English, including its purpose, code and important viva questions.
+
+# 1. Distribution Plot (Age)
+
+[Exploratory Data Analysis (EDA) with Pandas, Matplotlib, and Seaborn | by Dhruv Parmar | Medium](https://images.openai.com/static-rsc-4/X0-0EF45NGucItp6xRQp7AUQm063iV3uLMJRNQPKS5SCCK9tQvG7hpJud-9OhXnkmwMLNDILpQaWjsn6iLd1bngTNb1196WYqTJPidddy4Q8hNxWAY5kJHCfn0Snex16yoRg7hRPiaef344bHgf3igqqplRjR3N6SNEiWXeMsXE?purpose=inline)
+
+Code:
+
+```
+plt.figure(figsize=(6,4))sns.displot(df['age'])plt.show()
+```
+
+What is it?
+
+A distribution plot shows how numerical data is distributed.
+
+- X-axis: Age of passengers.
+- Y-axis: Number of passengers (Count).
+- Highest bar: Most passengers are around 20–30 years old.
+- Very few passengers are above 60 years old.
+
+Viva:
+
+- Q. What is a distribution plot?
+  - It shows the frequency distribution of numerical data.
+- Q. What does the X-axis represent?
+  - Age.
+- Q. What does the Y-axis represent?
+  - Frequency or count.
+
+# 2. Box Plot (Age vs Passenger Class)
+
+[A Complete Guide to Plotting Categorical Variables with Seaborn | by Will Norris | TDS Archive | Medium](https://images.openai.com/static-rsc-4/u0PEnlIS_4ZPHda5DAVHIxk0k1zLIj2vVcn3VwEau5OjXW4zuXh6rW6h9ytQq9h38MhxbP-DFPoDaA-8F4zBHSHHiIzUUDGVnpF8jrvnvGKKlsg_nDpw72jxkEVo2DLs6jzulh9mPchMiayT6_Tni0N0pxx2oeucKGoDi2eQl_s?purpose=inline)
+
+Code:
+
+```
+plt.figure(figsize=(5,3))bp = sns.boxplot(    x='class',    y='age',    palette='pastel',    data=df)plt.show()
+```
+
+What is it?
+
+A box plot shows the distribution of data using minimum, maximum, median, quartiles and outliers.
+
+- X-axis: Passenger class.
+- Y-axis: Age.
+- First class passengers generally have higher median ages.
+- Third class passengers generally have lower median ages.
+- Circles represent outliers.
+
+Important parts:
+
+- Minimum: Lower whisker.
+- Q1 (25%): Bottom of box.
+- Median (50%): Middle line.
+- Q3 (75%): Top of box.
+- Maximum: Upper whisker (excluding outliers).
+
+Viva:
+
+- Q. What is an outlier?
+  - A value that is unusually different from other values.
+- Q. What does the middle line represent?
+  - Median.
+- Q. Why do we use a box plot?
+  - To identify spread, median and outliers.
+
+# 3. Describe Function (Statistical Summary)
+
+Your image shows this code:
+
+```
+df.describe().transpose()
+```
+
+It generates a statistical summary of numerical columns.
+
+| Term  | Meaning                   |
+| ----- | ------------------------- |
+| Count | Number of non-null values |
+| Mean  | Average value             |
+| Std   | Standard deviation        |
+| Min   | Minimum value             |
+| 25%   | First quartile            |
+| 50%   | Median                    |
+| 75%   | Third quartile            |
+| Max   | Maximum value             |
+
+Important values from your output:
+
+- Age mean = 29.69
+- Age median = 28
+- Age minimum = 0.42
+- Age maximum = 80
+- Fare mean = 32.20
+
+Viva:
+
+- Q. What is `describe()`?
+  - It provides statistical information about numerical columns.
+- Q. What is standard deviation?
+  - It measures how much data varies from the mean.
+- Q. What is transpose?
+  - It converts rows into columns and columns into rows.
+
+# 4. Violin Plot (Age vs Passenger Class)
+
+[\[머신러닝/딥러닝\] 데이터를 한눈에 주요 시각화 그래프](https://images.openai.com/static-rsc-4/eIaz_JwHFlLqEDlSRANQNqImSFSISip6lXnvYhVzj1lLNrxfqY7QklW4yr1VqRdkoPozF5CvcYpB0lbduSXqLSmKjIzZRGShl2HGDceXfSRCfZXSQvzsQNoBsOwBgL9eDP4j-CIH9hqYrpoZLYVjK8cY7d_fKn-383hIDcvZyvY?purpose=inline)
+
+Code:
+
+```
+plt.figure(figsize=(5,4))vp = sns.violinplot(    x='class',    y='age',    palette='rainbow',    data=df)plt.show()
+```
+
+What is it?
+
+A violin plot shows the distribution and density of numerical data.
+
+- X-axis: Passenger class.
+- Y-axis: Age.
+- Wider area = More passengers at that age range.
+- Narrower area = Fewer passengers.
+- Inner box shows median and quartiles.
+
+Viva:
+
+- Q. What is a violin plot?
+  - It combines a box plot and a density distribution plot.
+- Q. What does the width represent?
+  - Data density.
+- Q. Difference between box plot and violin plot?
+  - Box plot shows quartiles and outliers, while violin plot also shows data density.
+
+# 5. Histogram (Fare vs Survival)
+
+[Seaborn Titanic Dataset Exploration | Mike Polinowski](https://images.openai.com/static-rsc-4/JoUUlj5CnFZiWxbLcRr_ymfNmg2MXwAAnz2X19nPYZdBxuPy0F8ChuhErs9jYqEqzlvgr0riCQLOmwo02FMfJOWk3HY6nMXfF3Lm1hxE2SqLNExX_2FSP0E6F3-XqaHlCvAgYX8KwXz9flESMhIlWbTc2mmAgqSYp_G5Fs6Jhf4?purpose=inline)
+
+Code:
+
+```
+plt.figure(figsize=(5,4))pq = sns.histplot(    x='fare',    bins=10,    data=df,    hue='survived',    kde=False)for i in pq.containers:    pq.bar_label(i)plt.show()
+```
+
+What is it?
+
+This graph compares passenger ticket fares based on survival.
+
+- X-axis: Ticket fare.
+- Y-axis: Number of passengers.
+- Blue (0): Did not survive.
+- Orange (1): Survived.
+- `bins=10`: Divides fare values into 10 intervals.
+- `hue='survived'`: Separates passengers by survival status.
+- `kde=False`: Disables the density curve.
+- `bar_label()`: Displays count values on bars.
+
+Viva:
+
+- Q. What does survived = 0 mean?
+  - Passenger did not survive.
+- Q. What does survived = 1 mean?
+  - Passenger survived.
+- Q. What is a bin?
+  - An interval used to group numerical values.
+- Q. What is KDE?
+  - Kernel Density Estimation, used to estimate the probability density distribution.
+
+# 6. Scatter Plot (Age vs Fare)
+
+[Seaborn for Data Analysis | Resagratia Data Analytics And Data Science Bootcamp](https://images.openai.com/static-rsc-4/m-7uO8GbiPGFQJvcat4klkIFq5Te0_9bO7TOAs9xHBk_BF5IpYdj5y4GaIVa1LMMEBf8RR1I1BZX1iWmf606Xo15HLmUC9_VEBpU55CG25apHhaFGIxWJHhBaYDdJr7rKiAMECC0GRURUldaMyD9-0wTZ4MAKeXCXpby-u1RnAI?purpose=inline)
+
+Code:
+
+```
+plt.figure(figsize=(5,4))st = sns.scatterplot(    x='age',    y='fare',    data=df)plt.show()
+```
+
+What is it?
+
+A scatter plot displays the relationship between two numerical variables.
+
+- X-axis: Age.
+- Y-axis: Fare.
+- Each dot represents one passenger.
+- Dots at the top represent passengers who paid higher fares.
+- Most passengers paid relatively low fares.
+
+Viva:
+
+- Q. What is a scatter plot?
+  - It shows the relationship between two numerical variables.
+- Q. What does each dot represent?
+  - One passenger.
+- Q. Can we identify outliers?
+  - Yes, points far away from most other points can indicate outliers.
+
+# 7. Scatter Plot (Age vs Fare with Survival)
+
+[Seaborn for Data Analysis | Resagratia Data Analytics And Data Science Bootcamp](https://images.openai.com/static-rsc-4/ViTDzFw7UxnA4hCVPNHWUUwULWZ7P93sHBe1hIppsM02vBZHutu4drFuKwsld6m9kdueuSLsX_5kNfV-zBVZMp2Gw6EqT__K_0BAxJ4zJHm7RLGp1kcOdFGkzQx_0IrhRcXRQLPU2JTuN164vRVcxl2rR9v62Woct6BBxWPJByU?purpose=inline)
+
+Code:
+
+```
+plt.figure(figsize=(5,4))h1 = sns.scatterplot(    x='age',    y='fare',    data=df,    hue='survived')plt.show()
+```
+
+What is it?
+
+It is similar to the previous scatter plot, but uses different colours to show survival status.
+
+- Blue (0): Did not survive.
+- Orange (1): Survived.
+- X-axis: Age.
+- Y-axis: Fare.
+
+Observation: The graph helps compare survival across different ages and ticket fares. It suggests that some higher-fare passengers survived, but it does not prove that fare alone determined survival.
+
+Viva:
+
+- Q. What is `hue`?
+  - It separates data into different colours based on a categorical variable.
+- Q. Why use hue?
+  - To compare different categories visually.
+- Q. What is the difference between the last two scatter plots?
+  - The second one uses colour to represent survival.
+
+# Important viva questions – Quick revision
+
+| Question                                 | Answer                             |
+| ---------------------------------------- | ---------------------------------- |
+| Which library is used for visualization? | Matplotlib and Seaborn             |
+| What is `plt.show()`?                    | Displays the graph                 |
+| What is `plt.figure()`?                  | Creates a figure                   |
+| What is `figsize`?                       | Sets graph dimensions              |
+| What is `sns.histplot()`?                | Creates a histogram                |
+| What is `sns.boxplot()`?                 | Creates a box plot                 |
+| What is `sns.violinplot()`?              | Creates a violin plot              |
+| What is `sns.scatterplot()`?             | Creates a scatter plot             |
+| What is `hue`?                           | Separates categories using colours |
+| What is `data=df`?                       | Specifies the DataFrame            |
+| What is `palette`?                       | Sets the colour scheme             |
+| What is `bins`?                          | Number of intervals in a histogram |
+
+## Test yourself for your practical viva
+
+Mini Viva Test
+
+0/5 answered
+
+Q1. Which graph is used to identify outliers?
+
+Histogram
+
+Box plot
+
+Scatter plot
+
+Pie chart
+
+
+
+Q2. What does the width of a violin plot represent?
+
+Average
+
+Median
+
+Data density
+
+Maximum
+
+
+
+Q3. What does survived = 1 mean in the Titanic dataset?
+
+Did not survive
+
+Survived
+
+Unknown
+
+Missing value
+
+
+
+Q4. Which function gives count, mean and standard deviation?
+
+df.head()
+
+df.info()
+
+df.describe()
+
+df.shape
+
+
+
+Q5. What does hue='survived' do?
+
+Changes X-axis
+
+Separates data by colour
+
+Removes outliers
+
+Calculates mean
+
+
+
+Submit Answers

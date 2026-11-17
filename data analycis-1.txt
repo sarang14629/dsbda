@@ -1,0 +1,676 @@
+# Viva Preparation – Notebook A4: Data Wrangling-1
+
+
+
+Topic identified
+
+&#x20;Linear Regression using Boston Housing Dataset
+
+
+
+I'll prepare you for your practical viva in simple English, as if the examiner is asking questions. We'll cover the theory, every code cell, important functions, graphs, and expected questions.
+
+## 1. Understand the practical
+
+Aim: To implement Linear Regression on the Boston Housing dataset and predict house prices.
+
+What is Linear Regression?
+
+Linear Regression is a supervised machine learning algorithm used to predict continuous numerical values.
+
+Example:
+
+- Input: Area, number of rooms, location-related features.
+- Output: Predicted house price.
+
+[Basic Concepts: Algorithms, Models, and Learning – Business Applications of Artificial Intelligence and Machine Learning (2nd Ed)](https://images.openai.com/static-rsc-4/rM1vFlcW6Yi-5jvp4y8i2mK1POA45SfWQopFzvFxTLs2v00kKpnOdLKW9d6n5NBcZjGgXpGocbEdLWksamV9h-ltn9zUNH7yAvOiwCSlNX6ZdXms3o5ysBq1rN_WiJ0Nycw3V922dljduUptlHr9cCMtfB_Pzkds1sc72KEpnKE?purpose=inline)
+
+[open.ocolearnok.org](https://open.ocolearnok.org/aibusinessapplications/chapter/chapter-3-basic-concepts-algorithms-and-learning/?utm_source=chatgpt.com)
+
+The basic equation is:
+
+\\[ Y = mX + C \\]
+
+Where:
+
+- Y = Predicted value
+- X = Input variable
+- m = Slope
+- C = Intercept
+
+## 2. Understand your Python libraries
+
+| Library          | Purpose                   |
+| ---------------- | ------------------------- |
+| Pandas           | Data manipulation         |
+| NumPy            | Numerical calculations    |
+| Seaborn          | Statistical visualization |
+| Matplotlib       | Graph plotting            |
+| Scikit-learn     | Machine learning          |
+| train_test_split | Splits dataset            |
+| LinearRegression | Creates regression model  |
+
+Important viva question:
+
+Q. Why do we use Pandas?
+
+Ans. Pandas is used to read, manipulate, clean and analyze datasets in tabular form.
+
+Q. Why do we use NumPy?
+
+Ans. NumPy is used for mathematical and numerical operations.
+
+Q. What is Scikit-learn?
+
+Ans. It is a Python machine learning library used to build and evaluate ML models.
+
+## 3. Explain your code step by step
+
+### Step 1: Import libraries
+
+```
+import pandas as pdimport numpy as npimport seaborn as snsimport matplotlib.pyplot as pltfrom sklearn.model_selection import train_test_splitfrom sklearn.linear_model import LinearRegressionfrom sklearn.metrics import mean_squared_error, r2_score
+```
+
+Viva questions:
+
+1. What is `pd`?\
+   It is an alias for the Pandas library.
+2. What is `plt`?\
+   It is an alias for Matplotlib's pyplot module.
+3. Why do we import `train_test_split`?\
+   To divide the dataset into training and testing data.
+4. Why do we import `LinearRegression`?\
+   To create a Linear Regression model.
+5. What is `mean_squared_error`?\
+   It calculates the average squared difference between actual and predicted values.
+
+### Step 2: Load the dataset
+
+```
+df = pd.read_csv("Assignment-A4-BostonHousing.csv")
+```
+
+- `read_csv()` reads a CSV file.
+- `df` stores the dataset in DataFrame format.
+
+Viva questions:
+
+Q. What is a DataFrame?
+
+Ans. A DataFrame is a two-dimensional tabular data structure containing rows and columns.
+
+Q. What is a dataset?
+
+Ans. A dataset is a collection of related data used for analysis and machine learning.
+
+Q. What is CSV?
+
+Ans. CSV stands for Comma-Separated Values.
+
+### Step 3: Explore the dataset
+
+```
+print(df.columns)print(df.info())print(df.describe())
+```
+
+| Function        | Meaning                                 |
+| --------------- | --------------------------------------- |
+| `df.columns`    | Displays column names                   |
+| `df.info()`     | Displays data types and non-null counts |
+| `df.describe()` | Displays statistical summary            |
+
+Viva questions:
+
+Q. What does `describe()` do?
+
+Ans. It gives count, mean, standard deviation, minimum, maximum and quartiles.
+
+Q. What is standard deviation?
+
+Ans. It measures how much the data values differ from their mean.
+
+Q. What is `df.info()` used for?
+
+Ans. To understand the structure of the dataset and identify missing values and data types.
+
+### Step 4: Check missing values
+
+```
+print(df.isnull().sum())
+```
+
+Explanation:
+
+- `isnull()` checks missing values.
+- `sum()` counts missing values in each column.
+
+Viva questions:
+
+Q. What are missing values?
+
+Ans. Missing values are empty or unavailable values in a dataset.
+
+Q. How can we handle missing values?
+
+Ans. We can remove missing rows using `dropna()` or replace values using `fillna()`.
+
+### Step 5: Correlation matrix
+
+```
+plt.figure(figsize=(12, 10))sns.heatmap(    df.corr(),    annot=True,    cmap='coolwarm')plt.title("Correlation Matrix")plt.show()
+```
+
+[Linear Regression on Boston House Pricing dataset using python | by Heena Sharma | Medium](https://images.openai.com/static-rsc-4/Pff9zGu0oOblNA2nEpgUQ3rjG8WTLFmG3hiy_N1cD_YCWRPSYZ7dkGoGvIUxjN95fs2kc7nuP3mrMtsti_pxK9rRB2thyFAVMuqQR8dZLYhf8iOu-1puvHLG1ypntMfKh29wOZUc7JSsKy9KmH5wreWcewwlvCRzINilDvLegUM?purpose=inline)
+
+[heena-sharma.medium.com](https://heena-sharma.medium.com/linear-regression-on-boston-house-pricing-dataset-using-python-ef1148c52c4e?utm_source=chatgpt.com)
+
+Explanation:
+
+A correlation matrix shows the relationship between numerical columns.
+
+- +1 = Perfect positive correlation.
+- -1 = Perfect negative correlation.
+- 0 = No linear correlation.
+
+Viva questions:
+
+Q. What is correlation?
+
+Ans. Correlation measures the strength and direction of the relationship between two variables.
+
+Q. What is a heatmap?
+
+Ans. A heatmap is a graphical representation of data using different colours.
+
+Q. What does `annot=True` mean?
+
+Ans. It displays numerical values inside the heatmap.
+
+Q. Why use `df.corr()`?
+
+Ans. To calculate the correlation between numerical columns.
+
+### Step 6: Separate input and output variables
+
+```
+X = df.drop('medv', axis=1)y = df['medv']
+```
+
+This is a very important step.
+
+- `X` = Independent variables (input features).
+- `y` = Dependent variable (output).
+- `medv` = Median value of owner-occupied homes.
+
+Viva questions:
+
+Q. What is an independent variable?
+
+Ans. A variable used to predict another variable.
+
+Q. What is a dependent variable?
+
+Ans. The variable that we want to predict.
+
+Q. Why do we drop `medv` from X?
+
+Ans. Because `medv` is our target variable, and we want the remaining columns to predict it.
+
+### Step 7: Split the dataset
+
+```
+X_train, X_test, y_train, y_test = train_test_split(    X, y, test_size=0.2, random_state=42)
+```
+
+[CMAPSS Jet Engine Failure Classification Based On Sensor Data](https://images.openai.com/static-rsc-4/_fjRdp9W0JyeGv9kaQcgIWu-wEAsC8yQcg9r92G_CGVjNSboy9BGrgV8mY5CSKKmuV5nRPnoZ82RHjFtPPTQb0RxS1lPBkMdWicvkNpeYelX4r-IY2BMGhX92mn65JADxhe43NKwdqzziDOxhFI3GqrFWKUK3nAv79TYhBEF_I4?purpose=inline)
+
+[analyticsvidhya.com](https://www.analyticsvidhya.com/blog/2024/07/cmapss-jet-engine-failure-classification-based-on-sensor-data/?utm_source=chatgpt.com)
+
+- 80% data is used for training.
+- 20% data is used for testing.
+- `random_state=42` makes the random split reproducible.
+
+Viva questions:
+
+Q. Why do we split data?
+
+Ans. To train the model on one part and test its performance on unseen data.
+
+Q. What is training data?
+
+Ans. Data used to teach the machine learning model.
+
+Q. What is testing data?
+
+Ans. Data used to evaluate the trained model.
+
+Q. What is `random_state=42`?
+
+Ans. It ensures we get the same random split whenever we run the code with the same data.
+
+### Step 8: Train the Linear Regression model
+
+```
+lr = LinearRegression()lr.fit(X_train, y_train)y_pred = lr.predict(X_test)
+```
+
+Explanation:
+
+1. `LinearRegression()` creates the model.
+2. `fit()` trains the model.
+3. `predict()` predicts house prices using test data.
+
+Viva questions:
+
+Q. What is model training?
+
+Ans. Model training is the process of learning patterns from training data.
+
+Q. What is `fit()`?
+
+Ans. It trains the model using input and output training data.
+
+Q. What is `predict()`?
+
+Ans. It predicts output values for new input data.
+
+Q. What is `y_pred`?
+
+Ans. It stores the predicted house prices.
+
+### Step 9: Evaluate the model
+
+```
+print("Mean Squared Error:", mean_squared_error(y_test, y_pred))print("R-squared:", r2_score(y_test, y_pred))
+```
+
+There are two important evaluation metrics.
+
+1\. Mean Squared Error (MSE)
+
+MSE calculates the average squared difference between actual and predicted values.
+
+\\[ MSE = \frac{1}{n}\sum\_{i=1}^{n}(y_i-\hat y_i)^2 \\]
+
+- Lower MSE is generally better.
+- Zero means perfect predictions.
+
+2\. R-squared (R²)
+
+R² tells us how much variation in the target variable is explained by the model.
+
+\\[ R^2=1-\frac{SS\_{res}}{SS\_{tot}} \\]
+
+- 1 = Perfect fit.
+- 0 = No improvement over predicting the mean.
+- Negative = Worse than predicting the mean.
+
+Viva questions:
+
+Q. What is model evaluation?
+
+Ans. It measures how accurately a machine learning model predicts results.
+
+Q. Which is better, higher or lower MSE?
+
+Ans. Lower MSE is better.
+
+Q. Which is better, higher or lower R²?
+
+Ans. Generally, higher R² is better.
+
+Q. Can R² be negative?
+
+Ans. Yes, it can be negative if the model performs worse than a mean-based prediction.
+
+### Step 10: Actual vs Predicted graph
+
+```
+plt.figure(figsize=(6,6))plt.scatter(y_test, y_pred, color='blue')plt.plot(    [min(y_test), max(y_test)],    [min(y_test), max(y_test)],    color='red')plt.xlabel('Actual Prices')plt.ylabel('Predicted Prices')plt.title('Actual vs Predicted Prices')plt.grid(True)plt.show()
+```
+
+[AI-Powered Real Estate Price Prediction | Ramsud Technologies](https://images.openai.com/static-rsc-4/Qhw_3df0soVPqo546ZzUkKNtuGoF4CvwOSu8NJZlxnFRER5hXkJzWLcM-s6SBe-gGrN51k7az3VJzUQLTJdlRV1CUXDr9t4-r6q9YjyBP7dEw_bcJoB6s5oZFa33lsNgy6J4L7uRSxMYvTAM46-fgnwXb4QZ7DTKBxDnkW6Bq2w?purpose=inline)
+
+[ramsudtechnologies.com](https://ramsudtechnologies.com/house-prediction-system.html?utm_source=chatgpt.com)
+
+Explanation:
+
+- Blue dots represent predicted values against actual values.
+- Red line represents perfect prediction.
+- Points closer to the red line indicate better predictions.
+
+Viva questions:
+
+Q. What does `scatter()` do?
+
+Ans. It creates a scatter plot.
+
+Q. What does the red line represent?
+
+Ans. It represents the ideal prediction where actual and predicted values are equal.
+
+Q. Why do we use `grid(True)`?
+
+Ans. To make the graph easier to read.
+
+## 4. Most important viva questions (quick revision)
+
+These questions are very likely to help in your practical viva.
+
+| No. | Question                      | Short answer                             |
+| --- | ----------------------------- | ---------------------------------------- |
+| 1   | What is Data Wrangling?       | Cleaning and transforming raw data.      |
+| 2   | What is Machine Learning?     | Learning patterns from data.             |
+| 3   | What is supervised learning?  | Learning using labelled data.            |
+| 4   | Which algorithm is used?      | Linear Regression.                       |
+| 5   | What type of algorithm is it? | Supervised learning.                     |
+| 6   | What is the target column?    | `medv`.                                  |
+| 7   | What is X?                    | Independent variables.                   |
+| 8   | What is y?                    | Dependent variable.                      |
+| 9   | What is MSE?                  | Mean Squared Error.                      |
+| 10  | What is R²?                   | Coefficient of determination.            |
+| 11  | What is overfitting?          | Model learns training data too closely.  |
+| 12  | What is underfitting?         | Model fails to learn important patterns. |
+| 13  | What is Pandas?               | Python data analysis library.            |
+| 14  | What is Seaborn?              | Statistical visualization library.       |
+| 15  | What is `fit()`?              | Trains the model.                        |
+| 16  | What is `predict()`?          | Predicts output.                         |
+| 17  | What is `test_size=0.2`?      | 20% testing data.                        |
+| 18  | What is correlation?          | Relationship between variables.          |
+| 19  | What is CSV?                  | Comma-Separated Values.                  |
+| 20  | What is regression?           | Predicting continuous numerical values.  |
+
+## 5. Explain your practical to the examiner
+
+If the examiner asks, "Explain your practical", say this:
+
+> In this practical, I have implemented Linear Regression using the Boston Housing dataset. First, I imported the required Python libraries and loaded the dataset using Pandas. Then I explored the dataset and checked for missing values. After that, I created a correlation heatmap to understand relationships between variables. I separated independent variables X and dependent variable y. Then I divided the dataset into 80% training and 20% testing data. I trained the Linear Regression model using fit(), predicted house prices using predict(), and evaluated the model using MSE and R-squared. Finally, I plotted actual versus predicted prices.
+
+## 6. Test yourself – Mock viva
+
+Let's practice like a real college viva. I'll ask one question at a time, check your answer, and explain if you make a mistake.
+
+Mock Viva
+
+Question 1/6
+
+Which machine learning algorithm is used in this practical?
+
+Decision Tree
+
+Linear Regression
+
+K-Means
+
+Random Forest
+
+My suggestion: First understand the code and the purpose of each function. Examiners commonly ask you to explain `fit()`, `predict()`, `MSE`, `R²`, and the train-test split
+
+# Correlation Matrix – Explanation (Data Analytics / Jupyter)
+
+This image shows a Correlation Matrix Heatmap created using Python. It is used in Data Analytics and Machine Learning to understand the relationship between different columns (features) in a dataset.
+
+The dataset shown is the Boston Housing Dataset, which is used to predict house prices.
+
+Let's understand it in simple English, like a viva answer.
+
+## 1. What is a correlation matrix?
+
+A correlation matrix tells us how strongly two variables are related to each other.
+
+For example:
+
+- Does the price of a house increase when the number of rooms increases?
+- Does the house price decrease when pollution increases?
+- Are two independent variables strongly related?
+
+Correlation values always range from -1 to +1.
+
+## 2. Understanding the colours
+
+Red / Orange – Positive correlation
+
+One variable increases, the other generally increases.
+
+Blue – Negative correlation
+
+One variable increases, the other generally decreases.
+
+Light colour – Weak or no correlation
+
+There is little linear relationship between variables.
+
+## 3. Understanding correlation values
+
+| Correlation | Meaning                       |
+| ----------- | ----------------------------- |
+| +1          | Perfect positive correlation  |
+| +0.8        | Strong positive correlation   |
+| +0.5        | Moderate positive correlation |
+| 0           | No linear correlation         |
+| -0.5        | Moderate negative correlation |
+| -0.8        | Strong negative correlation   |
+| -1          | Perfect negative correlation  |
+
+Important: Correlation does not always mean causation.
+
+## 4. Important observations from your heatmap
+
+These are the most important values to understand for your viva.
+
+| Variables        | Correlation | Interpretation                                                                   |
+| ---------------- | ----------- | -------------------------------------------------------------------------------- |
+| RM and MEDV      | +0.70       | More rooms generally mean higher house prices.                                   |
+| LSTAT and MEDV   | -0.74       | Higher lower-status population percentage is associated with lower house prices. |
+| PTRATIO and MEDV | -0.51       | Higher pupil-teacher ratio is associated with lower house prices.                |
+| NOX and MEDV     | -0.43       | Higher pollution is associated with lower house prices.                          |
+| CRIM and MEDV    | -0.39       | Higher crime rate is associated with lower house prices.                         |
+
+MEDV is the target variable. It represents the median value of owner-occupied homes.
+
+## 5. Explanation of Python code
+
+Your notebook uses this code:
+
+```
+# Correlation matrixplt.figure(figsize=(12, 10))sns.heatmap(    df.corr(),    annot=True,    cmap='coolwarm')plt.title("Correlation Matrix")plt.show()
+```
+
+Explanation:
+
+1. `plt.figure(figsize=(12,10))` – Sets the size of the graph.
+2. `df.corr()` – Calculates the correlation between numerical columns.
+3. `sns.heatmap()` – Creates a coloured heatmap.
+4. `annot=True` – Displays numerical values inside each box.
+5. `cmap='coolwarm'` – Sets the red-blue colour scheme.
+6. `plt.title()` – Adds the graph title.
+7. `plt.show()` – Displays the graph.
+
+## 6. What happens in the next code cell?
+
+Your image also shows:
+
+```
+X = df.drop('medv', axis=1)y = df['medv']X_train, X_test, y_train, y_test = train_test_split(    X, y, test_size=0.2, random_state=42)
+```
+
+Explanation:
+
+- `X`: Independent variables (input features).
+- `y`: Dependent variable (house price).
+- `drop('medv', axis=1)`: Removes MEDV from input features.
+- `test_size=0.2`: Uses 20% data for testing.
+- Remaining 80% data is used for training.
+- `random_state=42`: Ensures the same random split every time.
+
+## 7. Important viva questions
+
+Q1. What is a correlation matrix?
+
+It is a table that shows the relationship between different numerical variables.
+
+Q2. What is the range of correlation?
+
+-1 to +1.
+
+Q3. What does +1 mean?
+
+Perfect positive correlation.
+
+Q4. What does -1 mean?
+
+Perfect negative correlation.
+
+Q5. Why do we use a heatmap?
+
+To visually understand relationships between variables using colours.
+
+Q6. What is MEDV?
+
+Median value of owner-occupied homes. It is our target variable.
+
+Q7. Which variable has the highest negative correlation with MEDV in this graph?
+
+LSTAT (-0.74).
+
+Q8. Which variable has the highest positive correlation with MEDV?
+
+RM (+0.70).
+
+Q9. Why do we use `annot=True`?
+
+To display correlation values inside the heatmap.
+
+Q10. Why do we split data into training and testing?
+
+To train the model on one portion of data and evaluate its performance on unseen data.
+
+Viva tip
+
+Remember these three things:
+
+1. Correlation Matrix = Relationship between variables.
+2. Heatmap = Visual representation of correlation.
+3. MEDV = Target variable that Linear Regression predicts.
+
+If your examiner asks you to explain this graph, start with: "This is a correlation matrix used to identify positive and negative relationships between features in the Boston Housing Dataset."
+
+
+# Actual vs Predicted Prices – Linear Regression
+
+This graph shows how accurately our Linear Regression model predicts house prices using the Boston Housing Dataset.
+
+Let's understand it in simple English for your practical viva.
+
+## 1. What does this graph show?
+
+It compares two values:
+
+- Actual Prices (X-axis): Real house prices from the dataset.
+- Predicted Prices (Y-axis): House prices predicted by our Linear Regression model.
+
+The main purpose is to check how close the predicted prices are to the actual prices.
+
+## 2. Understanding the graph
+
+[AI-Powered Real Estate Price Prediction | Ramsud Technologies](https://images.openai.com/static-rsc-4/Qhw_3df0soVPqo546ZzUkKNtuGoF4CvwOSu8NJZlxnFRER5hXkJzWLcM-s6SBe-gGrN51k7az3VJzUQLTJdlRV1CUXDr9t4-r6q9YjyBP7dEw_bcJoB6s5oZFa33lsNgy6J4L7uRSxMYvTAM46-fgnwXb4QZ7DTKBxDnkW6Bq2w?purpose=inline)
+
+[ramsudtechnologies.com](https://ramsudtechnologies.com/house-prediction-system.html?utm_source=chatgpt.com)
+
+There are two important things:
+
+Blue dots (Scatter points)
+
+- Each blue dot represents one house.
+- It shows the actual price compared with the predicted price.
+- Dots closer to the red line indicate more accurate predictions.
+
+Red line (Reference line)
+
+- Represents perfect prediction.
+- If a blue dot lies exactly on this line, predicted price = actual price.
+- Dots far away from the line indicate prediction errors.
+
+## 3. Explanation of your Python code
+
+```
+plt.scatter(y_test, y_pred, color='blue')plt.plot(    [min(y_test), max(y_test)],    [min(y_test), max(y_test)],    color='red')plt.xlabel('Actual Prices')plt.ylabel('Predicted Prices')plt.title('Actual vs Predicted Prices')plt.grid(True)plt.show()
+```
+
+| Code             | Explanation                      |
+| ---------------- | -------------------------------- |
+| `plt.scatter()`  | Creates blue scatter points.     |
+| `y_test`         | Contains actual house prices.    |
+| `y_pred`         | Contains predicted house prices. |
+| `plt.plot()`     | Draws the red reference line.    |
+| `color='blue'`   | Makes scatter points blue.       |
+| `color='red'`    | Makes reference line red.        |
+| `plt.xlabel()`   | Labels X-axis.                   |
+| `plt.ylabel()`   | Labels Y-axis.                   |
+| `plt.title()`    | Gives the graph a title.         |
+| `plt.grid(True)` | Displays grid lines.             |
+| `plt.show()`     | Displays the graph.              |
+
+## 4. How to interpret your output?
+
+Look at your graph:
+
+1. Most blue dots are near the red line.
+2. This indicates that the model makes reasonably good predictions for many houses.
+3. Some dots are far from the red line.
+4. This indicates that the model makes larger prediction errors for some houses.
+
+Conclusion: Our Linear Regression model predicts house prices reasonably well, but some predictions are inaccurate.
+
+## 5. Important viva questions
+
+Q1. What is the purpose of this graph?
+
+To compare actual house prices with predicted house prices.
+
+Q2. What do blue dots represent?
+
+Actual versus predicted values for individual houses.
+
+Q3. What does the red line represent?
+
+The perfect prediction line, where actual price equals predicted price.
+
+Q4. What if a point lies on the red line?
+
+The prediction is 100% accurate for that observation.
+
+Q5. What if a point is far from the red line?
+
+It indicates a large prediction error.
+
+Q6. What is `y_test`?
+
+Actual target values used for testing the model.
+
+Q7. What is `y_pred`?
+
+Values predicted by the trained model.
+
+Q8. Which algorithm are we using?
+
+Linear Regression.
+
+Q9. Why do we use a scatter plot?
+
+To visualize the relationship between actual and predicted values.
+
+Q10. How can we improve model performance?
+
+By improving data quality, selecting relevant features, handling outliers and trying other suitable algorithms.
+
+Remember for viva
+
+- X-axis = Actual Prices
+- Y-axis = Predicted Prices
+- Blue dots = Model predictions compared with actual values
+- Red line = Perfect prediction
+- Dots closer to red line = Better predictions
+
+One-line viva answer: "This graph evaluates our Linear Regression model by comparing actual house prices with predicted house prices. The closer the blue points are to the red reference line, the better the model performs."

@@ -1,0 +1,449 @@
+# Viva Preparation – A3: Descriptive Statistics
+
+
+
+Based on your uploaded Python notebook
+
+SPPU Computer Engineering
+
+
+
+Your practical is about Descriptive Statistics, which is used to understand and summarize data using mean, median, mode, percentiles, and standard deviation.
+
+I'll prepare you with simple explanations, important viva questions, code explanations, and expected answers.
+
+# 1. What is Descriptive Statistics?
+
+Definition: Descriptive Statistics is a method used to collect, organize, summarize, and present data in a meaningful way.
+
+Example:
+
+Suppose we have marks of 5 students:
+
+`50, 60, 70, 80, 90`
+
+We can calculate:
+
+- Mean = 70
+- Median = 70
+- Mode = No repeated value
+- Minimum = 50
+- Maximum = 90
+
+Purpose: To understand large amounts of data easily.
+
+# 2. Important concepts for viva
+
+## A. Measures of Central Tendency
+
+These measures tell us the central or typical value of a dataset.
+
+1\. Mean (Average)
+
+Sum of all values divided by the total number of values.
+
+\\[ Mean=\frac{\sum x}{n} \\]
+
+Example: 10, 20, 30
+
+Mean = (10 + 20 + 30) / 3 = 20
+
+2\. Median (Middle Value)
+
+The middle value after arranging data in ascending order.
+
+Example: 10, 20, 30
+
+Median = 20
+
+3\. Mode (Most Frequent Value)
+
+The value that occurs most frequently.
+
+Example: 10, 20, 20, 30
+
+Mode = 20
+
+## B. Measures of Variability
+
+These tell us how spread out the data is.
+
+| Measure            | Meaning                             |
+| ------------------ | ----------------------------------- |
+| Range              | Maximum − Minimum                   |
+| Variance           | Average squared deviation from mean |
+| Standard Deviation | Measures spread around mean         |
+| IQR                | Q3 − Q1                             |
+
+Important formulas:
+
+Range
+
+\\[ Range=Maximum-Minimum \\]
+
+Variance
+
+\\[ \sigma^2=\frac{\sum(x-\mu)^2}{N} \\]
+
+Standard Deviation
+
+\\[ \sigma=\sqrt{Variance} \\]
+
+IQR
+
+\\[ IQR=Q3-Q1 \\]
+
+# 3. Explanation of your practical code
+
+Your notebook contains two parts.
+
+## Part 1: Age and Income Dataset
+
+### Step 1: Import Pandas
+
+```
+import pandas as pd
+```
+
+- `pandas` is a Python library.
+- It is used for data manipulation and analysis.
+- `pd` is its alias.
+
+### Step 2: Create dataset
+
+```
+data = {    'age': [25, 30, 22, 40, 55, 60, 33, 28, 45, 50],    'income': [50000, 60000, 45000, 70000, 80000,               90000, 65000, 62000, 75000, 85000],    'age_group': ['20-30', '30-40', '20-30', '40-50',                  '50-60', '50-60', '30-40', '20-30',                  '40-50', '50-60']}
+```
+
+Here we create three columns:
+
+- Age
+- Income
+- Age Group
+
+### Step 3: Create DataFrame
+
+```
+df = pd.DataFrame(data)
+```
+
+What is DataFrame?
+
+A DataFrame is a two-dimensional data structure containing rows and columns, similar to an Excel sheet.
+
+### Step 4: Calculate summary statistics
+
+```
+summary_stats = df.groupby('age_group')['income'].describe()print(summary_stats)
+```
+
+Explanation:
+
+- `groupby()` divides data into groups.
+- `age_group` groups people according to their age.
+- `income` selects the income column.
+- `describe()` calculates summary statistics.
+
+Output:
+
+| Age Group | Mean Income | Median Income |
+| --------- | ----------- | ------------- |
+| 20-30     | 52,333.33   | 50,000        |
+| 30-40     | 62,500      | 62,500        |
+| 40-50     | 72,500      | 72,500        |
+| 50-60     | 85,000      | 85,000        |
+
+### Step 5: Calculate median
+
+```
+median_income = df.groupby('age_group')['income'].median()
+```
+
+This calculates median income for every age group.
+
+### Step 6: Find column names
+
+```
+print(df.columns)
+```
+
+Output:
+
+```
+age, income, age_group
+```
+
+### Step 7: Calculate mode
+
+```
+mode_age = df['age'].mode()mode_income = df['income'].mode()
+```
+
+Output:
+
+```
+Mode of Age: [25]
+Mode of Income: [50000]
+```
+
+Why?
+
+Because 25 and 50000 occur most frequently in the modified dataset.
+
+## Part 2: Iris Dataset
+
+[Data Tales: Iris of the wild. In my last article, I mentioned the… | by Vanessa Ongodi Onyema | Medium](https://images.openai.com/static-rsc-4/J6rBW6eNgDaPd0CFSW5CgxWfmgy1a6DUSxMe8WFvqoxB-cAP0su3uBRJCqoOWmbv2ZYTEqYAfg0Agn5eKUKYJ6Dn9h2TWlFl-eQR4Lr-RDCH7wNH7ycdT6v9IOOrjooGczaOkYytAJzI3STxzEBaJLWY8zPFU83zyPOtwA9jPs8?purpose=inline)
+
+[medium.com](https://medium.com/mlearning-ai/data-tales-iris-of-the-wild-ceb02a6a7c83?utm_source=chatgpt.com)
+
+The Iris dataset contains measurements of three types of flowers:
+
+1. Setosa
+2. Versicolor
+3. Virginica
+
+It contains four numerical features:
+
+| Feature      | Meaning         |
+| ------------ | --------------- |
+| sepal.length | Length of sepal |
+| sepal.width  | Width of sepal  |
+| petal.length | Length of petal |
+| petal.width  | Width of petal  |
+
+### Step 1: Load dataset
+
+```
+df = pd.read_csv('iris.csv')
+```
+
+`read_csv()` reads a CSV file and converts it into a DataFrame.
+
+### Step 2: Display first five rows
+
+```
+print(df.head())
+```
+
+`head()` displays the first five rows by default.
+
+### Step 3: Group by species
+
+```
+df.groupby('variety').describe()
+```
+
+It calculates statistical information separately for each flower species.
+
+### Step 4: Calculate percentiles
+
+```
+percentiles = df.groupby('variety').quantile([0.25, 0.5, 0.75])
+```
+
+- 25th percentile = Q1
+- 50th percentile = Q2 or Median
+- 75th percentile = Q3
+
+### Step 5: Calculate median
+
+```
+median_values = df.groupby('variety').median()
+```
+
+Output for sepal length:
+
+| Species    | Median |
+| ---------- | ------ |
+| Setosa     | 5.0    |
+| Versicolor | 5.9    |
+| Virginica  | 6.5    |
+
+### Step 6: Calculate mode
+
+```
+mode_width = df['sepal.width'].mode()
+```
+
+Output:
+
+```
+Mode of Width: [3.]
+```
+
+This means 3.0 is the most frequently occurring sepal width.
+
+# 4. Most Important Viva Questions and Answers
+
+Must prepare
+
+Q1. What is Descriptive Statistics?
+
+It is a method of summarizing and describing data using statistical techniques.
+
+Q2. What are the three measures of central tendency?
+
+Mean, Median, and Mode.
+
+Q3. What is mean?
+
+Mean is the average of all observations.
+
+Q4. What is median?
+
+Median is the middle value of arranged data.
+
+Q5. What is mode?
+
+Mode is the most frequently occurring value.
+
+Q6. What is standard deviation?
+
+It measures how much data values are spread around the mean.
+
+Q7. What is variance?
+
+Variance is the average squared difference between data values and the mean.
+
+Q8. What is range?
+
+Difference between maximum and minimum values.
+
+Q9. What is Pandas?
+
+Pandas is a Python library used for data manipulation and analysis.
+
+Q10. What is a DataFrame?
+
+A two-dimensional structure containing rows and columns.
+
+Q11. What is NumPy?
+
+NumPy is a Python library used for numerical calculations and array operations.
+
+Q12. What is `describe()`?
+
+It provides summary statistics such as count, mean, standard deviation, minimum, maximum, and quartiles.
+
+Q13. What is `groupby()`?
+
+It divides data into groups based on a particular column.
+
+Q14. What is `median()`?
+
+It calculates the middle value of a dataset.
+
+Q15. What is `mode()`?
+
+It returns the most frequently occurring value or values.
+
+Q16. What is a percentile?
+
+A percentile indicates the value below which a given percentage of observations fall.
+
+Q17. What is IQR?
+
+Interquartile Range is the difference between the third and first quartiles.
+
+Q18. What is an outlier?
+
+An outlier is a value that is significantly different from other observations.
+
+Q19. What is the Iris dataset?
+
+It is a dataset containing measurements of three flower species with four numerical features.
+
+Q20. What does `head()` do?
+
+It displays the first five rows by default.
+
+# 5. Important Python Functions to Remember
+
+| Function         | Use                  |
+| ---------------- | -------------------- |
+| `pd.DataFrame()` | Create DataFrame     |
+| `pd.read_csv()`  | Read CSV file        |
+| `df.head()`      | First 5 rows         |
+| `df.tail()`      | Last 5 rows          |
+| `df.describe()`  | Summary statistics   |
+| `df.mean()`      | Calculate mean       |
+| `df.median()`    | Calculate median     |
+| `df.mode()`      | Calculate mode       |
+| `df.std()`       | Standard deviation   |
+| `df.var()`       | Variance             |
+| `df.min()`       | Minimum              |
+| `df.max()`       | Maximum              |
+| `df.groupby()`   | Group data           |
+| `df.quantile()`  | Calculate percentile |
+
+# 6. Practice Viva – Let's Test You
+
+I'll act as your external examiner. Answer these questions one by one, and I'll check your answers and explain anything you get wrong.
+
+Viva MCQ Test
+
+0/5 answered
+
+Q1. What is Descriptive Statistics?
+
+A method of summarizing data
+
+A programming language
+
+A database
+
+A sorting algorithm
+
+
+
+Q2. Which function is used to calculate median in Pandas?
+
+mean()
+
+median()
+
+mode()
+
+describe()
+
+
+
+Q3. What does groupby() do?
+
+Deletes data
+
+Sorts data
+
+Groups data based on a column
+
+Creates a graph
+
+
+
+Q4. What does standard deviation measure?
+
+Average
+
+Spread of data
+
+Total values
+
+Middle value
+
+
+
+Q5. How many species are present in the Iris dataset used here?
+
+2
+
+3
+
+4
+
+5
+
+
+
+Submit Answers
+
+My advice: First learn Mean, Median, Mode, Standard Deviation, Variance, `describe()`, `groupby()` and the Iris dataset. These are the most important concepts to explain confidently in your practical viva.

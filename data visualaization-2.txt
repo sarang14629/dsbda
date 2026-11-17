@@ -1,0 +1,566 @@
+# Notebook-A9: Data Visualization-2
+
+I'll explain this notebook in very simple English, step by step, just like viva preparation.
+
+## 1. Aim of the practical
+
+To perform data visualization and statistical analysis on the Titanic dataset using Python libraries such as Seaborn, Matplotlib and Pandas.
+
+In simple words: We analyze Titanic passenger data to understand their age, gender, ticket class and survival status using graphs.
+
+## 2. Libraries used
+
+```
+import seaborn as snsimport matplotlib.pyplot as pltfrom collections import Counter
+```
+
+| Library    | Purpose                        |
+| ---------- | ------------------------------ |
+| Seaborn    | Creates statistical graphs     |
+| Matplotlib | Displays and customizes graphs |
+| Counter    | Counts repeated values         |
+
+Viva question: What is Seaborn?
+
+Seaborn is a Python library used for statistical data visualization. It is built on Matplotlib.
+
+## 3. Load Titanic dataset
+
+```
+df = sns.load_dataset('titanic')df.head()
+```
+
+- `sns.load_dataset('titanic')` loads the Titanic dataset.
+- `df` stores the dataset in a DataFrame.
+- `df.head()` displays the first five rows.
+
+[Книга «Python для сложных задач: наука о данных. 2-е межд. изд.» / Хабр](https://images.openai.com/static-rsc-4/BwHfNyFCqzzsdbW5EjNQZiSmKnuwPo2P02bw3ApSuuknvx-TdAS5D_DtoziCo1UyaBhjhh1ODjKMmufsLI2iALVxZAK335Sbk2axPs8eDifmA0Bz2dDtSIVRK-k-nL0GQCOO0EKEjmksZ5OmcjkxBrdS0oguQ2VM2R2PE9IJRDk?purpose=inline)
+
+[habr.com](https://habr.com/ru/companies/piter/articles/793958/?utm_source=chatgpt.com)
+
+What information does the dataset contain?
+
+- survived – whether passenger survived.
+- pclass – passenger ticket class.
+- sex – male or female.
+- age – passenger age.
+- fare – ticket price.
+- embarked – boarding location.
+
+Important:
+
+- 0 = Did not survive.
+- 1 = Survived.
+
+## 4. Describe the dataset
+
+```
+print(df.describe())print(df.describe().transpose())
+```
+
+This function gives statistical information about numerical columns.
+
+| Term  | Meaning                    |
+| ----- | -------------------------- |
+| count | Number of available values |
+| mean  | Average                    |
+| std   | Standard deviation         |
+| min   | Minimum value              |
+| 25%   | First quartile             |
+| 50%   | Median                     |
+| 75%   | Third quartile             |
+| max   | Maximum value              |
+
+Important output:
+
+- Total passengers: 891
+- Available age values: 714
+- Average age: 29.69
+- Minimum age: 0.42
+- Maximum age: 80
+
+What is transpose()?
+
+Transpose changes rows into columns and columns into rows.
+
+## 5. Mean, Median and Mode
+
+This section calculates the average, middle and most frequently occurring passenger age.
+
+### Step 1: Remove missing values
+
+```
+age_data = df['age'].dropna()
+```
+
+`dropna()` removes empty or missing age values.
+
+### Step 2: Sort the ages
+
+```
+sorted_age_data = sorted(age_data)n = len(sorted_age_data)
+```
+
+- `sorted()` arranges ages in ascending order.
+- `len()` counts the number of ages.
+
+### Step 3: Calculate mean
+
+```
+mean_age = sum(age_data) / len(age_data)
+```
+
+Mean = Sum of all values / Number of values.
+
+### Step 4: Calculate median
+
+```
+if n % 2 == 1:    median_age = sorted_age_data[n // 2]else:    median_age = (sorted_age_data[n // 2 - 1] +                  sorted_age_data[n // 2]) / 2
+```
+
+Median is the middle value after sorting.
+
+- If the number of values is odd, take the middle value.
+- If even, take the average of the two middle values.
+
+### Step 5: Calculate mode
+
+```
+age_counts = Counter(age_data)mode_age = age_counts.most_common(1)[0][0]
+```
+
+Mode is the value that occurs most frequently.
+
+Actual notebook output
+
+# 29.69
+
+Mean age
+
+# 28
+
+Median age
+
+# 24
+
+Mode age
+
+## 6. Boxplot
+
+[How to make a boxplot and interpret it](https://images.openai.com/static-rsc-4/Agb9ECZp0ggUuOr9qFMU83V2nKTVE5PU7I8IMu1N0ayYE-ppwVbD41hJwjEWQFWv44bf8Yo8A6HHeGy-T1u5LnHq5kJsavezUXoDQoKVyVJz9uIZITDeGfcPkqblYf62idyoZr9HF6snQg8TJZxEsvgOCw2MMo9jOY9zaXB5BdQ?purpose=inline)
+
+[projectpro.io](https://www.projectpro.io/recipes/make-boxplot-and-interpret-it?utm_source=chatgpt.com)
+
+Code:
+
+```
+plt.figure(figsize=(8,4))sns.boxplot(    x="sex",    y="age",    hue="survived",    data=df,    palette="viridis")plt.title("Distribution of age with respect to each gender and survival Status")plt.xlabel("Sex")plt.ylabel("Age")plt.show()
+```
+
+Explanation:
+
+- `x="sex"` displays male and female categories.
+- `y="age"` displays passenger ages.
+- `hue="survived"` separates passengers according to survival status.
+- `palette="viridis"` sets the graph colors.
+- `plt.title()` adds the graph title.
+- `plt.show()` displays the graph.
+
+What is a boxplot?
+
+A boxplot is a graph that shows the distribution of data using minimum, maximum, median, quartiles and outliers.
+
+Remember: The line inside the box represents the median.
+
+## 7. Violin plot
+
+[Exploring Powerful Tools in Seaborn and other Visualization Libraries | Stats in Action](https://images.openai.com/static-rsc-4/I2BLSuGDVViq-zyT3xK9A4_h-RTmh0cLC6CEJOL_C7hvD7vKHu5QaVflBC1-jx0hTA4_e_kM-0JMBThSgYYNa7BT5kqamWk6URLxhGbcmQU40G6X3HBkOmp_I_Pd-61LyYiY9dDnxy7p6mtY0kNQX52If2OLsRms0Ds2p8TfccU?purpose=inline)
+
+[aajb99.github.io](https://aajb99.github.io/2023/10/10/seaborn-tutorial.html?utm_source=chatgpt.com)
+
+Code:
+
+```
+sns.violinplot(    x='sex',    y='age',    data=df,    hue='survived')
+```
+
+Explanation:
+
+A violin plot shows the distribution and density of numerical data.
+
+- X-axis: Gender.
+- Y-axis: Age.
+- Hue: Survival status.
+
+Why is it called a violin plot?
+
+Because its shape looks similar to a violin.
+
+It helps us understand where most passenger ages are concentrated.
+
+## 8. Catplot
+
+[【Python学習日記6】　　　　　　　　　タイタニック号の生存予測｜Book358](https://images.openai.com/static-rsc-4/ued0MTwqfnG84GNVpQ_QplVJOOzB8-n2_MXGU8BBUgw3gp8g5S9i-SxXwyQWhAV4Zy9ABzCHdItyqj6eaZdbUKmV2VyQqiOCy2SBEuLc6gckHF4CvQ5_YvSDVeCVewDr6CfWEYbSEAG-Bc0dqMceCye7JpkVTu4FOSrJPOM9-sU?purpose=inline)
+
+[note.com](https://note.com/book358/n/n5bf725e013b4?utm_source=chatgpt.com)
+
+Code:
+
+```
+sns.catplot(    x="sex",    hue="survived",    data=df,    kind="count")
+```
+
+Explanation:
+
+- `x="sex"` displays male and female.
+- `hue="survived"` separates survived and not survived passengers.
+- `kind="count"` creates a count plot.
+
+What is Catplot?
+
+Catplot is a Seaborn function used to visualize relationships between categorical variables.
+
+It helps compare the number of male and female passengers who survived or died.
+
+# 9. Important viva questions and answers
+
+These are the questions you should prepare for your practical viva.
+
+| Question                    | Answer                                                   |
+| --------------------------- | -------------------------------------------------------- |
+| What is Data Visualization? | Representing data using graphs and charts.               |
+| What is Seaborn?            | Python library for statistical visualization.            |
+| What is Matplotlib?         | Python library for creating graphs.                      |
+| What is Titanic dataset?    | Dataset containing information about Titanic passengers. |
+| What is DataFrame?          | A two-dimensional tabular data structure.                |
+| What is `head()`?           | Displays the first five rows.                            |
+| What is `describe()`?       | Gives statistical summary.                               |
+| What is `dropna()`?         | Removes missing values.                                  |
+| What is Mean?               | Average of values.                                       |
+| What is Median?             | Middle value of sorted data.                             |
+| What is Mode?               | Most frequently occurring value.                         |
+| What is Boxplot?            | Shows data distribution and outliers.                    |
+| What is Violin plot?        | Shows data distribution and density.                     |
+| What is Catplot?            | Visualizes categorical data.                             |
+| What is Hue?                | Separates data using different colors.                   |
+| What is Counter?            | Counts occurrences of values.                            |
+| What is `plt.show()`?       | Displays the graph.                                      |
+| What is an outlier?         | A value significantly different from other values.       |
+
+## 10. Most important questions examiner may ask
+
+Q1. Why did you use the Titanic dataset?
+
+To analyze passenger information and understand survival patterns.
+
+Q2. What is the difference between a boxplot and violin plot?
+
+- Boxplot shows median, quartiles and outliers.
+- Violin plot shows data distribution and density.
+
+Q3. Why do we remove missing values?
+
+Because missing values can affect statistical calculations.
+
+Q4. What is the difference between mean, median and mode?
+
+- Mean = Average.
+- Median = Middle value.
+- Mode = Most repeated value.
+
+Q5. Which library is used for visualization?
+
+Seaborn and Matplotlib.
+
+Q6. What does `hue` do?
+
+It divides data into different categories using colors.
+
+Q7. What is the total number of passengers in this dataset?
+
+891 passengers.
+
+## 11. Quick revision before viva
+
+Remember these points:
+
+- Dataset: Titanic
+- Total records: 891
+- Available age records: 714
+- Mean age: 29.69
+- Median age: 28
+- Mode age: 24
+- Graphs: Boxplot, Violin plot, Catplot
+- Libraries: Seaborn, Matplotlib
+
+## 12. Test yourself – Viva practice
+
+5 MCQs
+
+0/5 answered
+
+Q1. Which library is used to create statistical visualizations?
+
+NumPy
+
+Seaborn
+
+OS
+
+Random
+
+
+
+Q2. What does dropna() do?
+
+Sorts data
+
+Deletes columns
+
+Removes missing values
+
+Creates graphs
+
+
+
+Q3. What is the mode?
+
+Average value
+
+Middle value
+
+Most frequent value
+
+Maximum value
+
+
+
+Q4. Which plot shows data density?
+
+Violin plot
+
+Pie chart
+
+Line plot
+
+Scatter plot
+
+
+
+Q5. What does hue='survived' do?
+
+Deletes data
+
+Separates survival categories by color
+
+Calculates mean
+
+Sorts ages
+
+
+
+Submit answers
+
+My advice: Focus especially on Mean, Median, Mode, Boxplot, Violin plot and Catplot. These are the main concepts demonstrated in this notebook.
+
+These images show 3 important Seaborn visualizations using the Titanic dataset. Let's understand each one in simple English for your practical exam and viva.
+
+# 1. Box Plot – Age vs Sex and Survival
+
+[A beginner’s Guide to exploratory data analysis (EDA) | by Paresh Patil | Medium](https://images.openai.com/static-rsc-4/bRVEbfmYI4e3OaplQdynadlrz-KhXGF2kXMhpgINkTSXQcEfZXf0BXZyfoKRPaz9CPnWzkSyBhJD-8nfFAsO8QfY8Ypg22xcj39djm78f-bo-z2z_Mhxl3KEQlgF2e1tC-bJXE_2leqbF-K1RUsh6GvopaAvsm2mCZ-rUwKbwC8?purpose=inline)
+
+Purpose: To compare the age distribution of male and female passengers based on their survival status.
+
+Code:
+
+```
+plt.figure(figsize=(6,4))sns.boxplot(    x='sex',    y='age',    hue='survived',    data=df)plt.xlabel("Sex")plt.ylabel("Age")plt.show()
+```
+
+Explanation:
+
+- X-axis: Gender (Male and Female).
+- Y-axis: Age.
+- Blue (0): Did not survive.
+- Green (1): Survived.
+- Box: Shows the middle 50% of ages.
+- Middle line: Median age.
+- Circles: Outliers.
+
+Observation:
+
+- Male and female age distributions are compared separately.
+- The median age of female survivors is slightly higher than female non-survivors.
+- Some unusually high ages appear as outliers.
+
+Viva Questions:
+
+Q1. What is a box plot?
+
+Ans. A box plot represents data distribution using median, quartiles and outliers.
+
+Q2. What is hue?
+
+Ans. Hue separates categories using different colours.
+
+Q3. What does survived = 0 mean?
+
+Ans. Passenger did not survive.
+
+Q4. What does survived = 1 mean?
+
+Ans. Passenger survived.
+
+# 2. Violin Plot – Age vs Sex and Survival
+
+[Exploring Powerful Tools in Seaborn and other Visualization Libraries | Stats in Action](https://images.openai.com/static-rsc-4/I2BLSuGDVViq-zyT3xK9A4_h-RTmh0cLC6CEJOL_C7hvD7vKHu5QaVflBC1-jx0hTA4_e_kM-0JMBThSgYYNa7BT5kqamWk6URLxhGbcmQU40G6X3HBkOmp_I_Pd-61LyYiY9dDnxy7p6mtY0kNQX52If2OLsRms0Ds2p8TfccU?purpose=inline)
+
+Code:
+
+```
+sns.violinplot(    x='sex',    y='age',    data=df,    hue='survived')plt.show()
+```
+
+Purpose: To show the age distribution and density of male and female passengers according to survival.
+
+Explanation:
+
+- X-axis: Sex.
+- Y-axis: Age.
+- Blue: Did not survive.
+- Orange: Survived.
+- Wider part: More passengers in that age range.
+- Narrower part: Fewer passengers in that age range.
+
+Observation:
+
+- Many passengers are concentrated around the 20–40 age range.
+- The plot compares the age distribution of survivors and non-survivors.
+- It shows the density of ages more clearly than a box plot.
+
+Viva Questions:
+
+Q1. What is a violin plot?
+
+Ans. It combines a box plot and a density distribution plot.
+
+Q2. What does the width of a violin represent?
+
+Ans. Data density.
+
+Q3. Difference between box plot and violin plot?
+
+Ans. Box plot shows quartiles and outliers, while violin plot shows data density too.
+
+# 3. Count Plot – Sex vs Survival
+
+[Titanic Survival Prediction — A Complete Data Science Project | by Christos Papakostas | Medium](https://images.openai.com/static-rsc-4/wfRlVFQ_o79b_bxIaPtUNs_7s9w7i1BUtXrQwnp9jPomCJkJ1GyfIawddbWgp8B1FrPdHj8L8K_QN1xQNec2kTK28xAWhTlImuOK61fHvKqj5IQNcxiduE4sxGHh6sYBwG-t47EK5rxoCiuIiZK38So3uXyN96fvWbho2cZ4LAI?purpose=inline)
+
+Code:
+
+```
+sns.catplot(    x="sex",    hue="survived",    data=df,    kind="count")
+```
+
+Purpose: To count male and female passengers according to their survival status.
+
+Explanation:
+
+- X-axis: Gender.
+- Y-axis: Number of passengers.
+- Blue (0): Did not survive.
+- Orange (1): Survived.
+
+Observation from your graph:
+
+| Gender | Did not survive | Survived   |
+| ------ | --------------- | ---------- |
+| Male   | Around 468      | Around 109 |
+| Female | Around 81       | Around 233 |
+
+- Most male passengers did not survive.
+- Most female passengers survived.
+- Female survival count was much higher than male survival count.
+
+Viva Questions:
+
+Q1. What is a count plot?
+
+Ans. It displays the number of observations in each category.
+
+Q2. What is `kind="count"`?
+
+Ans. It tells Seaborn to create a count plot using `catplot()`.
+
+Q3. Difference between count plot and histogram?
+
+Ans. Count plot is used for categorical data, while histogram is used for numerical data.
+
+Q4. Which gender had more survivors?
+
+Ans. Female passengers.
+
+# Important code differences for viva
+
+| Function           | Purpose                              |
+| ------------------ | ------------------------------------ |
+| `sns.boxplot()`    | Shows median, quartiles and outliers |
+| `sns.violinplot()` | Shows data density and distribution  |
+| `sns.catplot()`    | Creates categorical plots            |
+| `kind="count"`     | Counts categorical observations      |
+| `hue="survived"`   | Separates survival categories        |
+| `plt.xlabel()`     | Sets X-axis label                    |
+| `plt.ylabel()`     | Sets Y-axis label                    |
+| `plt.show()`       | Displays the graph                   |
+
+## Test your understanding
+
+Mini Viva – 4 Questions
+
+1\. Which plot shows data density?
+
+Box plot
+
+Violin plot
+
+Count plot
+
+
+
+2\. Which plot counts male and female passengers?
+
+Count plot
+
+Scatter plot
+
+Histogram
+
+
+
+3\. What does orange represent in the violin plot?
+
+Did not survive
+
+Survived
+
+Missing data
+
+
+
+4\. Which parameter separates survival categories by colour?
+
+bins
+
+figsize
+
+hue
+
+
+
+Check answers
+
+Exam tip: Remember these three lines:
+
+- Box plot = Median + Quartiles + Outliers.
+- Violin plot = Data distribution + Density.
+- Count plot = Category-wise count.

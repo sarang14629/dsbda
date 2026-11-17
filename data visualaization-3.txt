@@ -1,0 +1,550 @@
+# Notebook-A10: Data Visualization – 3
+
+Let's prepare this practical for your viva in simple English, step by step, just like your previous practicals.
+
+
+
+Viva preparation
+
+Data Visualization
+
+
+
+## 1. Aim of the practical
+
+To perform data visualization on the Iris dataset using Python libraries and understand:
+
+1. Data types of features.
+2. Histogram.
+3. Boxplot.
+4. Outlier detection using IQR.
+5. Violin plot.
+
+## 2. Libraries used
+
+```
+import pandas as pdimport matplotlib.pyplot as pltimport seaborn as sns
+```
+
+| Library    | Purpose                           |
+| ---------- | --------------------------------- |
+| Pandas     | Read and manipulate datasets      |
+| Matplotlib | Create graphs and charts          |
+| Seaborn    | Create statistical visualizations |
+
+Remember for viva:
+
+- Pandas = Data handling.
+- Matplotlib = Plotting graphs.
+- Seaborn = Statistical graphs.
+
+## 3. Dataset loading
+
+```
+df = pd.read_csv('iris.csv')df.head()
+```
+
+- `read_csv()` reads the CSV file.
+- `df` stores the dataset in a DataFrame.
+- `head()` displays the first five rows.
+
+The Iris dataset contains four numerical features and one categorical feature.
+
+## 4. Understanding the features and data types
+
+```
+df.dtypes
+```
+
+Output:
+
+| Feature      | Data type |
+| ------------ | --------- |
+| sepal.length | float64   |
+| sepal.width  | float64   |
+| petal.length | float64   |
+| petal.width  | float64   |
+| variety      | object    |
+
+What is the difference?
+
+- Numerical data: Values that can be measured, such as length and width.
+- Categorical data: Values representing categories, such as Setosa, Versicolor and Virginica.
+- `float64`: Decimal number.
+- `object`: Usually text/string data in Pandas.
+
+## 5. Histogram
+
+[Storytelling with Iris Dataset — Multi-class Classification using Machine Learning | by Ansa | Tech & TensorFlow | Medium](https://images.openai.com/static-rsc-4/U8Mowi6Ar_89UtlOhDqHcJ8wkEdi5e47545LhYmq-YajzwCQUeOv1HXdhA8tKWAevhaKMqeW66hS2whCMlfJcUEHhD7QOwimfMYjDY9AflLXNmHOApBncUM5bQoI0O1jATCECHQmS3AN1ewDHPNNVdP5fVYPy9J0r_nBQ9tFux0?purpose=inline)
+
+[medium.com](https://medium.com/tech-tensorflow/story-telling-with-iris-dataset-multi-class-classification-using-machine-learning-18a8d94f681f?utm_source=chatgpt.com)
+
+Code:
+
+```
+plt.figure(figsize=(12, 6))for i, column in enumerate(df.columns[:-1]):    plt.subplot(2, 2, i + 1)    ax = plt.hist(df[column], edgecolor="black")    plt.title(f"Histogram of {column}")    plt.xlabel(column)    plt.ylabel("Frequency")plt.tight_layout()plt.show()
+```
+
+Explain like I'm 5:
+
+Imagine you have 100 students and want to know their heights. You group students by height. A histogram shows how many students belong to each group.
+
+- X-axis = Values.
+- Y-axis = Frequency (count).
+- Bars = Groups of values called bins.
+
+Why do we use a histogram?
+
+To understand the distribution of numerical data.
+
+## 6. Boxplot
+
+[seaborn.boxplot — seaborn 0.11.2 documentation](https://images.openai.com/static-rsc-4/-b-0fZ8tJ51s9AYBk_3PYzAEO3vhipqLgKD6c7g-hbPotNbu05VUfaeBAMrghHKltslirr9TPoJUMoHaPOjy-qLeK4zUuegxQ4DfTxINUKPVLyRuh-Ja1ZTnpHeMn2PeLWbueEohHYNMBdj7-YI7bWc8Xiu4jydjw0sdUdM01zA?purpose=inline)
+
+[seaborn.pydata.org](https://seaborn.pydata.org/archive/0.11/generated/seaborn.boxplot.html?utm_source=chatgpt.com)
+
+Code:
+
+```
+sns.boxplot(x=df[column], ax=ax, color='salmon')
+```
+
+A boxplot shows five important statistical values:
+
+1. Minimum.
+2. First quartile (Q1).
+3. Median (Q2).
+4. Third quartile (Q3).
+5. Maximum.
+
+Why do we use boxplots?
+
+To identify outliers and understand the spread of data.
+
+### What is an outlier?
+
+An outlier is a value that is very different from other values.
+
+Example: Marks of students = 40, 45, 50, 55, 99.
+
+Here, 99 may be an outlier.
+
+## 7. Outlier detection using IQR
+
+This is a very important part of your practical.
+
+Code:
+
+```
+Q1 = df[column].quantile(0.25)Q3 = df[column].quantile(0.75)IQR = Q3 - Q1lower_bound = Q1 - 1.5 * IQRupper_bound = Q3 + 1.5 * IQR
+```
+
+Understand the formulas:
+
+- Q1 = 25th percentile.
+- Q3 = 75th percentile.
+- IQR = Interquartile Range.
+
+Formula:
+
+\\[ IQR = Q3-Q1 \\]
+
+Outlier limits:
+
+\\[ Lower=Q1-1.5(IQR) \\]
+
+\\[ Upper=Q3+1.5(IQR) \\]
+
+Any value below the lower limit or above the upper limit is considered an outlier.
+
+### Output of your practical
+
+| Feature      | Outliers |
+| ------------ | -------- |
+| sepal.length | No       |
+| sepal.width  | Yes      |
+| petal.length | No       |
+| petal.width  | No       |
+
+Outlier values in sepal width:
+
+`4.4, 4.1, 4.2, 2.0`
+
+The program also calculates:
+
+- Mean: Average value.
+- Median: Middle value.
+- Standard deviation: Measures how spread out the values are.
+
+## 8. Violin plot
+
+[Storytelling with Iris Dataset — Multi-class Classification using Machine Learning | by Ansa | Tech & TensorFlow | Medium](https://images.openai.com/static-rsc-4/NsymCyreCI7b4IwPQzSEJHXtYbddKn6IXI33_a0VXIqY9cOkb7RM6yOdVJu-e3XfI2kpymSnrf9kS-KniWtFszeu73TAtrf6WSF7Yd7hXhHT97x0408z0zZyUVGOdoarREdG99N2DgZAL1rbOUgY6MCZVwHviBQGETGynBcrZMo?purpose=inline)
+
+[medium.com](https://medium.com/tech-tensorflow/story-telling-with-iris-dataset-multi-class-classification-using-machine-learning-18a8d94f681f?utm_source=chatgpt.com)
+
+Code:
+
+```
+sns.violinplot(    x=df["variety"],    y=df[column],    palette="Set2",    hue=df['variety'])
+```
+
+Explain simply:
+
+A violin plot looks like a violin instrument. It shows how data is distributed across different categories.
+
+It combines:
+
+- Boxplot information.
+- Data density.
+- Median and quartiles.
+- Distribution shape.
+
+In this practical, it compares the four flower measurements across three Iris varieties.
+
+Why use a violin plot?
+
+To compare the distribution of numerical features between different categories.
+
+## 9. Conclusion
+
+The practical demonstrates that:
+
+1. Iris dataset contains four numerical and one categorical feature.
+2. Histograms show data distribution.
+3. Boxplots help identify outliers.
+4. Sepal width contains outliers.
+5. Violin plots compare flower measurements across three varieties.
+6. Setosa is distinct from the other two varieties in several features.
+
+# 10. Important viva questions and answers
+
+Must prepare
+
+| Question                             | Answer                                                       |
+| ------------------------------------ | ------------------------------------------------------------ |
+| 1. What is data visualization?       | Representing data using graphs and charts.                   |
+| 2. What is Pandas?                   | A Python library for data manipulation.                      |
+| 3. What is Matplotlib?               | A Python library for plotting graphs.                        |
+| 4. What is Seaborn?                  | A library for statistical visualization.                     |
+| 5. What is Iris dataset?             | A dataset containing measurements of three flower varieties. |
+| 6. What is a histogram?              | A graph showing frequency distribution.                      |
+| 7. What is a bin?                    | An interval or group of values in a histogram.               |
+| 8. What is a boxplot?                | A graph showing data spread and outliers.                    |
+| 9. What is an outlier?               | A value significantly different from other values.           |
+| 10. What is IQR?                     | Difference between Q3 and Q1.                                |
+| 11. What is Q1?                      | First quartile or 25th percentile.                           |
+| 12. What is Q3?                      | Third quartile or 75th percentile.                           |
+| 13. What is median?                  | Middle value of sorted data.                                 |
+| 14. What is mean?                    | Average of all values.                                       |
+| 15. What is standard deviation?      | Measure of data spread.                                      |
+| 16. What is a violin plot?           | Combination of boxplot and density plot.                     |
+| 17. How many classes are in Iris?    | Three.                                                       |
+| 18. Name the three varieties.        | Setosa, Versicolor, Virginica.                               |
+| 19. How many numerical features?     | Four.                                                        |
+| 20. Which feature has outliers here? | Sepal width.                                                 |
+
+# 11. Test yourself – Viva practice
+
+Let's check whether you understand this practical. Answer these questions one by one.
+
+Five viva MCQs
+
+0/5 answered
+
+Q1. Which library is used to create a boxplot in this practical?
+
+NumPy
+
+Seaborn
+
+OS
+
+Flask
+
+
+
+Q2. What is the formula for IQR?
+
+Q1 + Q3
+
+Q3 - Q1
+
+Q1 × Q3
+
+Q3 / Q1
+
+
+
+Q3. Which feature contains outliers in this notebook?
+
+Sepal length
+
+Petal length
+
+Sepal width
+
+Petal width
+
+
+
+Q4. How many varieties are present in the Iris dataset?
+
+2
+
+3
+
+4
+
+5
+
+
+
+Q5. What does a histogram show?
+
+Frequency distribution
+
+Only outliers
+
+Database structure
+
+Flower images
+
+
+
+Submit answers
+
+My advice: For this practical, focus especially on Histogram, Boxplot, IQR formula, Outliers and Violin plot. These are the most important concepts to understand and explain confidently in your viva.
+
+These two images are from Data Visualization – 3 practical (Iris Dataset).
+
+They cover two important topics:
+
+1. Box Plot for identifying outliers.
+2. Violin Plot for comparing flower measurements across species.
+
+I'll explain the code, graphs, observations and viva questions in simple English.
+
+# 1. Box Plot – Identifying Outliers
+
+Important for viva
+
+Code from your notebook:
+
+```
+plt.figure(figsize=(12,6))for i, column in enumerate(df.columns[:-1]):    ax = plt.subplot(2, 2, i + 1)    box_container = sns.boxplot(        x=df[column],        ax=ax,        color='salmon'    )    plt.title(f"Boxplot of {column}")plt.tight_layout()plt.show()
+```
+
+### Explanation line by line
+
+| Code                         | Meaning                                           |
+| ---------------------------- | ------------------------------------------------- |
+| `plt.figure(figsize=(12,6))` | Creates figure of size 12 × 6                     |
+| `df.columns[:-1]`            | Selects all columns except the last one (species) |
+| `enumerate()`                | Gives index and column name                       |
+| `plt.subplot(2,2,i+1)`       | Creates 4 graph positions                         |
+| `sns.boxplot()`              | Creates a box plot                                |
+| `color='salmon'`             | Sets box colour                                   |
+| `plt.title()`                | Sets graph title                                  |
+| `plt.tight_layout()`         | Adjusts spacing between graphs                    |
+| `plt.show()`                 | Displays all graphs                               |
+
+### Understanding the four graphs
+
+[r - Data visualization with extreme far away points - Data Science Stack Exchange](https://images.openai.com/static-rsc-4/YgsG9gDQ4GqInnKWK-ctsY6MfHgKPm7WsH57us6yueN1EI-gQY5UeI7t2UzsOiIIdSzNpiDUOS3Lbdi6Rh5dmCkhS87LDJpMbUTEH-jBgAojvNXg7qhoW6KP-CT8fMTT52qZvJcHTlKVTPduIiXUnBfEdtoZBgGCv106lWXyrt0?purpose=inline)
+
+[Visualizing statistical significance information together with a box plot | by Xavier Eugenio Asuncion | Medium](https://images.openai.com/static-rsc-4/s3mhnekC1XgrloyVh4Mm1H_it8cJobXBjuSFGUTQYt3vzctR1aC3uv0_QxVeUvwYpEu4VuB0u_T4rELitbnF1QAu3m_GAWGTjjg5u6sAGwNYJYpVoJFo2EfRkuKyg0zbEInC8tsI9PG1bX6I5_0o8BTsk1S-YzldifC4Qn9leaQ?purpose=inline)
+
+[Matplotlib vs. Seaborn — CodeSolid.com 0.1 documentation](https://images.openai.com/static-rsc-4/YoWQaDu2RjazjHWxtyr7u4Oou0W7q30ubiTgP5rn-mni8raP3bpFKvzDfOFJ4plbOXKsmSiihihZSib53wIhRR-sW7CoTlfchIQ0j_mF9hZw3vS8QVt6OxtYfRaG7HbM-wnuqaV4Ji8xdGCr_Ep1Bnh72ghMnACCGsNTMdY-q_c?purpose=inline)
+
+4
+
+Your four graphs represent:
+
+- Sepal length
+- Sepal width
+- Petal length
+- Petal width
+
+What is an outlier?
+
+An outlier is a value that is unusually different from the other values.
+
+In your graph:
+
+- Circles outside the whiskers represent outliers.
+- Sepal width shows visible outliers.
+- The other measurements have comparatively fewer visible outliers.
+
+### How are outliers detected mathematically?
+
+Your notebook uses the IQR method (Interquartile Range).
+
+Code from your notebook:
+
+```
+for column in df.columns[:-1]:    Q1 = df[column].quantile(0.25)    Q3 = df[column].quantile(0.75)    IQR = Q3 - Q1    lower_bound = Q1 - 1.5 * IQR    upper_bound = Q3 + 1.5 * IQR    outliers = df[        (df[column] < lower_bound) |        (df[column] > upper_bound)    ][column]
+```
+
+Important formulas:
+
+\\[ IQR = Q3-Q1 \\]
+
+\\[ Lower = Q1-1.5(IQR) \\]
+
+\\[ Upper = Q3+1.5(IQR) \\]
+
+A value below the lower bound or above the upper bound is considered an outlier.
+
+Viva questions:
+
+1. What is IQR?\
+   Difference between Q3 and Q1.
+2. What is Q1?\
+   First quartile (25%).
+3. What is Q3?\
+   Third quartile (75%).
+4. Why do we use 1.5 in the IQR formula?\
+   It is the standard multiplier used to identify potential outliers.
+5. Which graph is best for identifying outliers?\
+   Box plot.
+
+# 2. Violin Plot – Iris Dataset
+
+Important for viva
+
+[Storytelling with Iris Dataset — Multi-class Classification using Machine Learning | by Ansa | Tech & TensorFlow | Medium](https://images.openai.com/static-rsc-4/NsymCyreCI7b4IwPQzSEJHXtYbddKn6IXI33_a0VXIqY9cOkb7RM6yOdVJu-e3XfI2kpymSnrf9kS-KniWtFszeu73TAtrf6WSF7Yd7hXhHT97x0408z0zZyUVGOdoarREdG99N2DgZAL1rbOUgY6MCZVwHviBQGETGynBcrZMo?purpose=inline)
+
+Purpose: To compare the distribution of flower measurements among three Iris species.
+
+The three species are:
+
+- Setosa
+- Versicolor
+- Virginica
+
+The four graphs represent:
+
+1. Violin plot of sepal length by variety.
+2. Violin plot of sepal width by variety.
+3. Violin plot of petal length by variety.
+4. Violin plot of petal width by variety.
+
+### Code (concept)
+
+```
+plt.figure(figsize=(12,6))for i, column in enumerate(df.columns[:-1]):    ax = plt.subplot(2, 2, i+1)    sns.violinplot(        x='species',        y=column,        data=df,        ax=ax    )    plt.title(f"Violin Plot of {column}")plt.tight_layout()plt.show()
+```
+
+### Understanding the graphs
+
+| Graph        | What it represents     |
+| ------------ | ---------------------- |
+| Sepal length | Length of flower sepal |
+| Sepal width  | Width of flower sepal  |
+| Petal length | Length of flower petal |
+| Petal width  | Width of flower petal  |
+
+How to read a violin plot:
+
+- Wider portion = More data values concentrated there.
+- Narrower portion = Fewer data values.
+- Middle marking = Central distribution information.
+- Different colours = Different flower species.
+
+### Observations
+
+- Setosa generally has smaller petals.
+- Virginica generally has larger petals.
+- Versicolor measurements generally fall between the other two species.
+- Petal length and petal width are useful for distinguishing Iris species.
+
+# 3. Difference between Box Plot and Violin Plot
+
+| Box Plot                | Violin Plot                              |
+| ----------------------- | ---------------------------------------- |
+| Shows data distribution | Shows data distribution                  |
+| Displays median         | Displays density and central information |
+| Shows quartiles         | Shows density shape                      |
+| Identifies outliers     | Shows concentration of values            |
+| Rectangular shape       | Violin-shaped graph                      |
+
+# 4. Important practical viva questions
+
+| Question                             | Answer                               |
+| ------------------------------------ | ------------------------------------ |
+| Which dataset is used?               | Iris dataset                         |
+| How many species are there?          | 3                                    |
+| How many numerical features?         | 4                                    |
+| What is an outlier?                  | Unusually different data value       |
+| What is IQR?                         | Q3 − Q1                              |
+| Which library creates box plots?     | Seaborn                              |
+| Which function creates violin plots? | `sns.violinplot()`                   |
+| What does `enumerate()` do?          | Returns index and value              |
+| What does `subplot()` do?            | Creates multiple plots in one figure |
+| What does `tight_layout()` do?       | Adjusts spacing between plots        |
+| What does `quantile(0.25)` mean?     | Calculates Q1                        |
+| What does `quantile(0.75)` mean?     | Calculates Q3                        |
+
+# 5. Test your practical knowledge
+
+Iris Dataset Viva Test
+
+0/5
+
+Q1. Which formula is used to calculate IQR?
+
+Q1 + Q3
+
+Q3 - Q1
+
+Q3 × Q1
+
+
+
+Q2. Which method is used to detect outliers in your notebook?
+
+Mean method
+
+IQR method
+
+Regression method
+
+
+
+Q3. How many species are present in the Iris dataset?
+
+2
+
+3
+
+4
+
+
+
+Q4. Which graph shows data density?
+
+Bar plot
+
+Box plot
+
+Violin plot
+
+
+
+Q5. What does df.columns[:-1] do?
+
+Selects all columns
+
+Excludes the last column
+
+Selects only the last column
+
+
+
+Submit answers
+
+Remember these three things for your viva:
+
+1. Box plot → Identifies outliers.
+2. IQR → Detects outliers mathematically.
+3. Violin plot → Shows data distribution and density across species.

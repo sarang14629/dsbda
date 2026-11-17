@@ -1,0 +1,416 @@
+# Data Wrangling-1 – Complete Viva Preparation
+
+I've checked your uploaded Jupyter Notebook. Your practical uses Python, Pandas, NumPy and the Iris dataset to perform basic data-wrangling operations.
+
+Let's prepare you for your practical viva with simple explanations, important questions and answers.
+
+
+
+Viva preparation
+
+Based on your notebook
+
+
+
+## 1. Understand your practical first
+
+Aim: To perform basic data-wrangling operations on the Iris dataset using Python libraries.
+
+What is Data Wrangling?
+
+Data wrangling is the process of cleaning, organizing and transforming raw data into a useful format for analysis.
+
+Example:
+
+- Finding missing values.
+- Removing duplicate records.
+- Dropping unnecessary columns.
+- Replacing text values with numerical values.
+- Understanding the dataset.
+
+## 2. Libraries used
+
+Your notebook imports two libraries.
+
+```
+import pandas as pdimport numpy as np
+```
+
+| Library | Purpose                           |
+| ------- | --------------------------------- |
+| Pandas  | Data manipulation and analysis    |
+| NumPy   | Numerical calculations and arrays |
+
+Q1. What is Pandas?
+
+Pandas is a Python library used to analyze, manipulate and organize data.
+
+Q2. What is NumPy?
+
+NumPy is a Python library used for numerical operations and working with arrays.
+
+Q3. What is an alias?
+
+An alias is another name given to a library.
+
+Example: `pd` is an alias for Pandas.
+
+## 3. Dataset used – Iris dataset
+
+[Scikit-learn, the Iris Dataset, and Machine Learning: The Journey to a New Skill | by Trayshawn Webb | Medium](https://images.openai.com/static-rsc-4/xFlG3Mre1pjJa054EZRdJZyerbetL4vozR39onOdkBhN_BLND_5ozecYgv6TIHx7D3KIlc82rjG0Qx968zwxBSKhqggC8mr2kP5pt4rIB2Hn2BrsR-4lPiyP9jW7QQmoz75P3r2-OvCyu9D5hQx9Z6yMKObslnhlF2veBmK6q7o?purpose=inline)
+
+[3tw.medium.com](https://3tw.medium.com/scikit-learn-the-iris-dataset-and-machine-learning-the-journey-to-a-new-skill-c8d2f537e087?utm_source=chatgpt.com)
+
+Your notebook loads the dataset using:
+
+```
+df = pd.read_csv('iris.csv')
+```
+
+The Iris dataset contains:
+
+- 150 rows (records).
+- 5 columns.
+- 4 numerical columns.
+- 1 categorical column.
+
+| Column       | Meaning             |
+| ------------ | ------------------- |
+| sepal.length | Length of sepal     |
+| sepal.width  | Width of sepal      |
+| petal.length | Length of petal     |
+| petal.width  | Width of petal      |
+| variety      | Type of Iris flower |
+
+Q4. What is a DataFrame?
+
+A DataFrame is a two-dimensional tabular data structure containing rows and columns.
+
+Q5. What is CSV?
+
+CSV stands for Comma-Separated Values. It is a file format used to store tabular data.
+
+## 4. Explain every code in your practical
+
+### 1. Import libraries
+
+```
+import pandas as pdimport numpy as np
+```
+
+Imports Pandas and NumPy libraries.
+
+### 2. Load dataset and describe it
+
+```
+df = pd.read_csv('iris.csv')df.describe()
+```
+
+- `read_csv()` loads the CSV file.
+- `describe()` displays statistical information.
+
+It shows:
+
+- Count
+- Mean
+- Standard deviation
+- Minimum
+- Maximum
+- 25%, 50%, 75% quartiles
+
+Viva question: What is mean?
+
+Mean is the average of all values.
+
+### 3. Display first and last five records
+
+```
+df.head()df.tail()
+```
+
+- `head()` displays the first 5 records by default.
+- `tail()` displays the last 5 records by default.
+
+Q. How can you display the first 10 records?
+
+```
+df.head(10)
+```
+
+### 4. Find duplicate records
+
+```
+df.duplicated()
+```
+
+Checks whether rows are duplicated.
+
+- True = Duplicate row.
+- False = Not a duplicate row.
+
+Q. How do you remove duplicates?
+
+```
+df.drop_duplicates()
+```
+
+### 5. Find missing values
+
+```
+df.isnull()
+```
+
+Checks whether values are missing.
+
+- True = Missing value.
+- False = Value is present.
+
+Q. How do you count missing values?
+
+```
+df.isnull().sum()
+```
+
+Your dataset has zero missing values in every column.
+
+### 6. Display dataset information
+
+```
+df.info()
+```
+
+Displays:
+
+- Number of rows.
+- Number of columns.
+- Column names.
+- Data types.
+- Non-null values.
+- Memory usage.
+
+Q. What is dtype?
+
+It represents the data type of a column, such as integer, float or object.
+
+### 7. Find dataset dimensions
+
+```
+df.shape
+```
+
+Output:
+
+```
+(150, 5)
+```
+
+It means:
+
+- 150 rows.
+- 5 columns.
+
+Q. What is the difference between shape and size?
+
+- `shape` returns rows and columns.
+- `size` returns the total number of elements.
+
+### 8. Check missing values in a particular column
+
+```
+df["sepal.length"].isnull()
+```
+
+Checks missing values only in the `sepal.length` column.
+
+### 9. Drop a column
+
+```
+y = df.drop(["petal.length"], axis=1)
+```
+
+Removes the `petal.length` column from the resulting DataFrame.
+
+Important:
+
+- `axis=0` means rows.
+- `axis=1` means columns.
+
+### 10. Replace categorical values
+
+```
+df['variety'].replace(    ['Setosa', 'Virginica'],    [0, 1],    inplace=True)
+```
+
+Replaces:
+
+- Setosa with 0.
+- Virginica with 1.
+
+Why do we convert text into numbers?
+
+Many machine-learning algorithms require numerical input.
+
+Note: Your code does not replace Versicolor, so it remains unchanged.
+
+### 11. Count NULL values
+
+```
+df.isnull().sum()
+```
+
+Counts the total missing values in each column.
+
+Your output:
+
+```
+sepal.length    0
+sepal.width     0
+petal.length    0
+petal.width     0
+variety         0
+```
+
+This means there are no missing values.
+
+## 5. Most important viva questions and answers
+
+These are the questions you should prepare first.
+
+| No. | Question                    | Short answer                        |
+| --- | --------------------------- | ----------------------------------- |
+| 1   | What is Data Wrangling?     | Cleaning and transforming raw data. |
+| 2   | What is Pandas?             | Python data analysis library.       |
+| 3   | What is NumPy?              | Numerical computing library.        |
+| 4   | What is DataFrame?          | 2D data structure.                  |
+| 5   | What is Series?             | 1D labeled data structure.          |
+| 6   | What is CSV?                | Comma-Separated Values.             |
+| 7   | What is `head()`?           | Displays first 5 rows.              |
+| 8   | What is `tail()`?           | Displays last 5 rows.               |
+| 9   | What is `describe()`?       | Gives statistical summary.          |
+| 10  | What is `info()`?           | Gives dataset information.          |
+| 11  | What is `shape`?            | Returns rows and columns.           |
+| 12  | What is `isnull()`?         | Checks missing values.              |
+| 13  | What is `duplicated()`?     | Checks duplicate rows.              |
+| 14  | What is `drop()`?           | Removes rows or columns.            |
+| 15  | What is `replace()`?        | Replaces existing values.           |
+| 16  | What is `axis=1`?           | Column operation.                   |
+| 17  | What is `axis=0`?           | Row operation.                      |
+| 18  | What is `inplace=True`?     | Modifies the original object.       |
+| 19  | What is mean?               | Average of values.                  |
+| 20  | What is standard deviation? | Measures data spread.               |
+
+## 6. Important differences for viva
+
+Pandas Series vs DataFrame
+
+| Series                | DataFrame           |
+| --------------------- | ------------------- |
+| One-dimensional       | Two-dimensional     |
+| Single column of data | Multiple columns    |
+| Like a single list    | Like an Excel table |
+
+`isnull()` vs `dropna()`
+
+| isnull()               | dropna()                           |
+| ---------------------- | ---------------------------------- |
+| Detects missing values | Removes missing-value rows/columns |
+| Returns True or False  | Returns cleaned data               |
+
+`head()` vs `tail()`
+
+| head()         | tail()         |
+| -------------- | -------------- |
+| First records  | Last records   |
+| Default 5 rows | Default 5 rows |
+
+## 7. Practical viva test – Let's check your preparation
+
+I'll ask you questions like an external examiner. Select your answer and check your understanding.
+
+Viva practice quiz
+
+0/6 answered
+
+Q1. What is the main purpose of Data Wrangling?
+
+Creating websites
+
+Cleaning and transforming data
+
+Designing databases
+
+Writing operating systems
+
+
+
+Q2. Which function displays the first 5 rows?
+
+tail()
+
+info()
+
+head()
+
+describe()
+
+
+
+Q3. What is the output of df.shape in your notebook?
+
+(5, 150)
+
+(150, 5)
+
+(150, 4)
+
+(5, 5)
+
+
+
+Q4. What does axis=1 represent?
+
+Rows
+
+Columns
+
+Missing values
+
+Duplicates
+
+
+
+Q5. Which function checks missing values?
+
+duplicated()
+
+drop()
+
+isnull()
+
+replace()
+
+
+
+Q6. What does inplace=True mean?
+
+Creates a chart
+
+Changes the original object
+
+Deletes the dataset
+
+Imports a library
+
+
+
+Submit answers
+
+## 8. Last-minute revision – Remember these commands
+
+```
+pd.read_csv()       # Load CSVdf.head()           # First 5 rowsdf.tail()           # Last 5 rowsdf.describe()       # Statistical summarydf.info()           # Dataset informationdf.shape            # Rows and columnsdf.duplicated()     # Check duplicatesdf.isnull()         # Check missing valuesdf.isnull().sum()   # Count missing valuesdf.drop()           # Drop rows/columnsdf.replace()        # Replace valuesdf.drop_duplicates()# Remove duplicates
+```
+
+My advice: Understand the purpose of each code rather than memorizing it. The examiner will most likely ask you to explain `head()`, `describe()`, `isnull()`, `drop()`, `replace()` and `axis`.
+
+We can prepare the next practical in the same question-by-question viva style after this one.

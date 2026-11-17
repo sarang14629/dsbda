@@ -1,0 +1,624 @@
+# Viva Preparation – Data Analytics 2 (Notebook A5)
+
+
+
+Experiment identified
+
+&#x20;Social Network Ads – Logistic Regression Classification
+
+
+
+Your practical uses Machine Learning to predict whether a person will purchase a product based on their Gender, Age and Estimated Salary.
+
+I'll explain it in simple English, then give you important viva questions and answers that you can speak directly in front of your examiner.
+
+## 1. Aim of the practical
+
+To implement Logistic Regression on the Social Network Ads dataset and predict whether a user will purchase a product or not.
+
+Example:
+
+Suppose a person is:
+
+- Gender: Male
+- Age: 35
+- Estimated Salary: ₹50,000
+
+The model predicts:
+
+- `0` = Not Purchased
+- `1` = Purchased
+
+## 2. Libraries used
+
+| Library        | Purpose                |
+| -------------- | ---------------------- |
+| Pandas         | Data handling          |
+| NumPy          | Numerical calculations |
+| Matplotlib     | Data visualization     |
+| Seaborn        | Graphs and heatmaps    |
+| Scikit-learn   | Machine Learning       |
+| StandardScaler | Feature scaling        |
+
+Important viva question: What is Pandas?
+
+Pandas is a Python library used to handle and analyze structured data.
+
+What is Seaborn?
+
+Seaborn is a Python library used to create statistical graphs and visualizations.
+
+## 3. Explain the code step by step
+
+### Step 1: Import libraries
+
+```
+import pandas as pdimport numpy as npimport matplotlib.pyplot as pltimport seaborn as sns
+```
+
+These libraries help us handle data, perform calculations and visualize results.
+
+### Step 2: Load the dataset
+
+```
+df = pd.read_csv("Assignment-A5-Social_Network_Ads.csv")df.head()
+```
+
+- `read_csv()` loads the CSV file.
+- `df` stores the dataset.
+- `head()` displays the first five rows.
+
+### Step 3: Convert Gender into numerical values
+
+```
+df['Gender'] = df['Gender'].map({    'Male': 0,    'Female': 1})
+```
+
+Machine Learning algorithms need numerical input.
+
+Therefore:
+
+- Male = 0
+- Female = 1
+
+### Step 4: Select features and target
+
+```
+X = df[['Gender', 'Age', 'EstimatedSalary']]y = df['Purchased']
+```
+
+- `X` = Independent variables (input).
+- `y` = Dependent variable (output).
+
+Our model uses Gender, Age and Salary to predict Purchased.
+
+### Step 5: Split the dataset
+
+```
+X_train, X_test, y_train, y_test = train_test_split(    X, y, test_size=0.25, random_state=42)
+```
+
+We divide the dataset into:
+
+- 75% training data.
+- 25% testing data.
+
+Why? Training teaches the model. Testing checks how well it performs on unseen data.
+
+### Step 6: Feature Scaling
+
+```
+sc = StandardScaler()X_train = sc.fit_transform(X_train)X_test = sc.transform(X_test)
+```
+
+Feature scaling brings numerical features onto a comparable scale.
+
+- `fit_transform()` calculates scaling parameters and transforms training data.
+- `transform()` applies the same scaling to testing data.
+
+### Step 7: Train the model
+
+```
+classifier = LogisticRegression()classifier.fit(X_train, y_train)
+```
+
+- Creates a Logistic Regression model.
+- `fit()` trains the model using training data.
+
+### Step 8: Make predictions
+
+```
+y_pred = classifier.predict(X_test)
+```
+
+The model predicts whether users will purchase the product.
+
+### Step 9: Evaluate the model
+
+```
+cm = confusion_matrix(y_test, y_pred)accuracy = accuracy_score(y_test, y_pred)
+```
+
+We use a confusion matrix and performance metrics to evaluate the model.
+
+## 4. Confusion Matrix – Most Important
+
+Your practical produced this output:
+
+Confusion Matrix
+
+# 61
+
+True Negative (TN)
+
+Correctly predicted not purchased
+
+# 2
+
+False Positive (FP)
+
+Predicted purchased, actually not
+
+# 10
+
+False Negative (FN)
+
+Predicted not purchased, actually purchased
+
+# 27
+
+True Positive (TP)
+
+Correctly predicted purchased
+
+Total test predictions = 100
+
+Your confusion matrix:
+
+```
+[[61  2]
+ [10 27]]
+```
+
+Remember these four terms:
+
+| Term | Meaning                       |
+| ---- | ----------------------------- |
+| TP   | Correct positive prediction   |
+| TN   | Correct negative prediction   |
+| FP   | Incorrect positive prediction |
+| FN   | Incorrect negative prediction |
+
+## 5. Performance metrics and output
+
+Your practical produced these results:
+
+Accuracy
+
+# 88%
+
+Precision
+
+# 93%
+
+Recall
+
+# 73%
+
+Error Rate
+
+# 12%
+
+Important formulas:
+
+1\. Accuracy
+
+\\[ \frac{TP+TN}{TP+TN+FP+FN} \\]
+
+2\. Precision
+
+\\[ \frac{TP}{TP+FP} \\]
+
+3\. Recall
+
+\\[ \frac{TP}{TP+FN} \\]
+
+4\. Error Rate
+
+\\[ 1-\text{Accuracy} \\]
+
+Easy explanation:
+
+- Accuracy: How many predictions are correct?
+- Precision: Out of predicted purchases, how many were actually purchases?
+- Recall: Out of actual purchases, how many did the model identify?
+- Error rate: How many predictions were incorrect?
+
+## 6. Most important viva questions with answers
+
+These are the questions I recommend preparing first.
+
+### Basic questions
+
+Q1. What is Machine Learning?
+
+Machine Learning is a branch of AI that allows computers to learn from data and make predictions without being explicitly programmed for every task.
+
+Q2. What is Logistic Regression?
+
+Logistic Regression is a supervised Machine Learning algorithm used for classification problems.
+
+Q3. Why is it called Logistic Regression?
+
+Because it uses the logistic or sigmoid function to calculate probabilities.
+
+Q4. What is classification?
+
+Classification means predicting a category or class, such as Yes/No or 0/1.
+
+Q5. Is Logistic Regression used for classification or regression?
+
+It is mainly used for classification.
+
+Q6. What is supervised learning?
+
+Learning using labelled data, where both input and correct output are provided.
+
+Q7. What is the sigmoid function?
+
+It converts values into probabilities between 0 and 1.
+
+\\[ \sigma(x)=\frac{1}{1+e^{-x}} \\]
+
+Q8. What is the difference between Linear and Logistic Regression?
+
+- Linear Regression predicts continuous values.
+- Logistic Regression predicts class probabilities and categories.
+
+### Dataset questions
+
+Q9. Which dataset is used?
+
+Social Network Ads dataset.
+
+Q10. What are the input features?
+
+Gender, Age and Estimated Salary.
+
+Q11. What is the target variable?
+
+Purchased.
+
+Q12. Why do we convert Gender into numbers?
+
+Because Machine Learning algorithms require numerical input.
+
+Q13. What does `df.head()` do?
+
+It displays the first five rows of the dataset.
+
+Q14. What does `df.columns` do?
+
+It displays all column names.
+
+### Model training questions
+
+Q15. What is train-test splitting?
+
+Dividing data into training and testing sets.
+
+Q16. Why do we use 75:25 splitting?
+
+75% data trains the model and 25% data evaluates its performance.
+
+Q17. What is StandardScaler?
+
+It standardizes features so that they have approximately zero mean and unit variance.
+
+Q18. What is the difference between fit and transform?
+
+- `fit()` learns parameters from data.
+- `transform()` applies those parameters.
+- `fit_transform()` performs both operations.
+
+Q19. Why do we scale the data?
+
+To prevent features with larger numerical ranges from dominating the learning process.
+
+Q20. What is `random_state=42`?
+
+It ensures reproducible random splitting, so we get the same split when running the code again with the same data.
+
+### Evaluation questions
+
+Q21. What is a confusion matrix?
+
+A table used to evaluate classification results by comparing actual and predicted values.
+
+Q22. What is accuracy in your practical?
+
+88%.
+
+Q23. What is precision in your practical?
+
+93%.
+
+Q24. What is recall in your practical?
+
+73%.
+
+Q25. What is the error rate?
+
+12%.
+
+Q26. What is False Positive?
+
+The model predicts a purchase, but the user actually does not purchase.
+
+Q27. What is False Negative?
+
+The model predicts no purchase, but the user actually purchases.
+
+Q28. What is Seaborn?
+
+A Python visualization library used to create statistical graphs.
+
+Q29. Why do we use a heatmap?
+
+To visualize the confusion matrix using different colours.
+
+Q30. What is `y_pred`?
+
+It contains the predicted output values generated by the model.
+
+## 7. Practical code questions examiner may ask
+
+| Question               | Short answer             |
+| ---------------------- | ------------------------ |
+| `pd.read_csv()`        | Reads CSV file           |
+| `df.head()`            | Displays first 5 rows    |
+| `train_test_split()`   | Splits dataset           |
+| `StandardScaler()`     | Scales features          |
+| `LogisticRegression()` | Creates classifier       |
+| `.fit()`               | Trains model             |
+| `.predict()`           | Makes predictions        |
+| `confusion_matrix()`   | Creates confusion matrix |
+| `accuracy_score()`     | Calculates accuracy      |
+| `precision_score()`    | Calculates precision     |
+| `recall_score()`       | Calculates recall        |
+| `sns.heatmap()`        | Displays heatmap         |
+
+## 8. Final revision – Remember these before entering the viva
+
+Your practical in 10 points
+
+1. Experiment: Social Network Ads.
+2. Algorithm: Logistic Regression.
+3. Learning type: Supervised Learning.
+4. Problem type: Binary Classification.
+5. Input: Gender, Age, Estimated Salary.
+6. Output: Purchased (0 or 1).
+7. Training/testing ratio: 75:25.
+8. Scaling: StandardScaler.
+9. Accuracy: 88%.
+10. Visualization: Confusion Matrix Heatmap.
+
+## 9. Let's take your viva! 🎓
+
+I'll act as your college examiner. I'll ask one question at a time, check your answer, correct your mistakes and give you marks.
+
+Viva practice
+
+Question 1 of 5
+
+What is Logistic Regression?
+
+A supervised learning algorithm used for classification
+
+An algorithm used only for sorting
+
+A database management technique
+
+
+
+Previous
+
+Next
+
+
+
+My advice: Focus especially on Logistic Regression, StandardScaler, train-test split, confusion matrix, precision, recall and the meaning of TP, TN, FP and FN. These are very important for your practical viva.
+
+
+# Confusion Matrix – Explanation (Machine Learning)
+
+This image shows a Confusion Matrix used to evaluate the performance of a Machine Learning classification model.
+
+Let's understand it in simple English for your practical viva.
+
+## 1. What is a Confusion Matrix?
+
+A confusion matrix is a table that compares the model's actual predictions with predicted results.
+
+It tells us:
+
+- How many predictions are correct.
+- How many predictions are incorrect.
+- How accurately the model identifies positive and negative classes.
+
+## 2. Understanding your Confusion Matrix
+
+Your output:
+
+Confusion Matrix
+
+|          | Predicted 0          | Predicted 1         |
+| -------- | -------------------- | ------------------- |
+| Actual 0 | 61<br>True Negative  | 2<br>False Positive |
+| Actual 1 | 10<br>False Negative | 27<br>True Positive |
+
+There are four important terms:
+
+| Term                | Value | Meaning                                  |
+| ------------------- | ----- | ---------------------------------------- |
+| True Positive (TP)  | 27    | Correctly predicted positive             |
+| True Negative (TN)  | 61    | Correctly predicted negative             |
+| False Positive (FP) | 2     | Predicted positive but actually negative |
+| False Negative (FN) | 10    | Predicted negative but actually positive |
+
+Easy trick to remember:
+
+- True = Correct prediction.
+- False = Wrong prediction.
+- Positive = Class 1.
+- Negative = Class 0.
+
+## 3. Understanding performance metrics
+
+Your notebook gives these results:
+
+# 88%
+
+Accuracy
+
+# 93%
+
+Precision
+
+# 73%
+
+Recall
+
+# 12%
+
+Error Rate
+
+### A. Accuracy
+
+Accuracy tells us how many predictions are correct out of total predictions.
+
+Formula:
+
+\\[ Accuracy=\frac{TP+TN}{TP+TN+FP+FN} \\]
+
+\\[ =\frac{27+61}{100}=0.88 \\]
+
+Answer = 88%
+
+### B. Error Rate
+
+It tells us how many predictions are incorrect.
+
+\\[ Error Rate=\frac{FP+FN}{Total} \\]
+
+\\[ =\frac{2+10}{100}=0.12 \\]
+
+Answer = 12%
+
+### C. Precision
+
+Precision tells us how many predicted positive values are actually positive.
+
+\\[ Precision=\frac{TP}{TP+FP} \\]
+
+\\[ =\frac{27}{27+2}=0.93 \\]
+
+Answer = 93%
+
+### D. Recall
+
+Recall tells us how many actual positive values the model correctly identified.
+
+\\[ Recall=\frac{TP}{TP+FN} \\]
+
+\\[ =\frac{27}{27+10}=0.73 \\]
+
+Answer = 73%
+
+## 4. Explanation of Python code
+
+Your notebook uses:
+
+```
+# Visualizesns.heatmap(    cm,    annot=True,    fmt='d',    cmap='Blues')plt.xlabel("Predicted")plt.ylabel("Actual")plt.title("Confusion Matrix")plt.show()
+```
+
+| Code            | Explanation                             |
+| --------------- | --------------------------------------- |
+| `sns.heatmap()` | Creates confusion matrix visualization. |
+| `cm`            | Stores confusion matrix values.         |
+| `annot=True`    | Displays numbers inside boxes.          |
+| `fmt='d'`       | Displays values as integers.            |
+| `cmap='Blues'`  | Uses blue colour scheme.                |
+| `plt.xlabel()`  | Labels predicted values.                |
+| `plt.ylabel()`  | Labels actual values.                   |
+| `plt.title()`   | Sets graph title.                       |
+| `plt.show()`    | Displays graph.                         |
+
+## 5. Important viva questions
+
+Q1. What is a confusion matrix?
+
+It is a table used to evaluate classification model performance.
+
+Q2. What are the four components?
+
+TP, TN, FP and FN.
+
+Q3. What is accuracy?
+
+Percentage of total correct predictions.
+
+Q4. What is precision?
+
+Out of all positive predictions, how many are actually positive?
+
+Q5. What is recall?
+
+Out of all actual positive cases, how many did the model correctly identify?
+
+Q6. What is false positive?
+
+Model predicts positive, but the actual result is negative.
+
+Q7. What is false negative?
+
+Model predicts negative, but the actual result is positive.
+
+Q8. What is the difference between precision and recall?
+
+- Precision focuses on correctness of positive predictions.
+- Recall focuses on identifying actual positive cases.
+
+Q9. Why do we use a heatmap?
+
+To visualize confusion matrix values using colours.
+
+Q10. Is 88% accuracy good?
+
+It indicates reasonably good accuracy, but precision, recall and the application requirements must also be considered.
+
+## 6. Quick viva revision
+
+| Metric     | Your result |
+| ---------- | ----------- |
+| TP         | 27          |
+| TN         | 61          |
+| FP         | 2           |
+| FN         | 10          |
+| Accuracy   | 88%         |
+| Error Rate | 12%         |
+| Precision  | 93%         |
+| Recall     | 73%         |
+
+Most important viva answer
+
+"This confusion matrix evaluates our classification model. It gives 27 true positives, 61 true negatives, 2 false positives and 10 false negatives. The model achieves 88% accuracy, 93% precision and 73% recall."
+
+One extra formula to remember:
+
+F1-score is the harmonic mean of precision and recall.
+
+\\[ F1=2\times\frac{Precision\times Recall} {Precision+Recall} \\]
+
+For your results, F1-score is approximately 82%.

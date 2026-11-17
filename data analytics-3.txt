@@ -1,0 +1,430 @@
+# Viva Preparation – Notebook A6 (Data Analytics-3)
+
+
+
+Practical identified
+
+&#x20;Iris Flower Classification using Gaussian Naive Bayes
+
+
+
+I've checked your Jupyter Notebook. Let's prepare for your viva in simple English, including the practical explanation, code, important concepts, and expected examiner questions.
+
+## 1. What is this practical about?
+
+Aim: To classify Iris flowers into different species using the Gaussian Naive Bayes machine learning algorithm.
+
+The notebook uses the Iris dataset to predict the type of flower based on four measurements.
+
+[Naive Bayes Classifier in Machine Learning](https://images.openai.com/static-rsc-4/ZP6463Y59yCxwB0nasdFW-JrB9ck1sltxJqf3t8n-ry7bpXV7to2pLxOwdR79TY5aG2cZwUeL9D6JZMGJpXrvL968RsD5YJ0dB4J2mSQCjTrBxpikTPfdP1MpBBm1Rwj0Ea5KMf-qBf3fHgWgA5DHKCHxiSy29OOJPh4EFBa2rM?purpose=inline)
+
+[enjoyalgorithms.com](https://www.enjoyalgorithms.com/blog/naive-bayes-in-ml/?utm_source=chatgpt.com)
+
+There are three types of flowers:
+
+1. Setosa
+2. Versicolor
+3. Virginica
+
+Four input features:
+
+- Sepal Length
+- Sepal Width
+- Petal Length
+- Petal Width
+
+Output: Predicted flower variety.
+
+## 2. Explain the practical step by step
+
+### Step 1: Import libraries
+
+```
+import pandas as pdimport numpy as npimport seaborn as snsimport matplotlib.pyplot as pltfrom sklearn.model_selection import train_test_splitfrom sklearn.preprocessing import StandardScalerfrom sklearn.naive_bayes import GaussianNBfrom sklearn.metrics import confusion_matrixfrom sklearn.metrics import accuracy_scorefrom sklearn.metrics import precision_scorefrom sklearn.metrics import recall_score
+```
+
+What are these libraries used for?
+
+| Library    | Purpose              |
+| ---------- | -------------------- |
+| Pandas     | Data handling        |
+| NumPy      | Numerical operations |
+| Seaborn    | Data visualization   |
+| Matplotlib | Graph plotting       |
+| Sklearn    | Machine learning     |
+
+### Step 2: Load dataset
+
+```
+df = pd.read_csv("iris.csv")df.head()
+```
+
+- `read_csv()` loads the CSV file.
+- `df` stores the dataset.
+- `head()` displays the first five rows.
+
+### Step 3: Separate input and output
+
+```
+X = df.drop('variety', axis=1)y = df['variety']
+```
+
+- X: Independent variables (flower measurements).
+- y: Dependent variable (flower variety).
+
+Remember: X is input and y is output.
+
+### Step 4: Split the dataset
+
+```
+X_train, X_test, y_train, y_test = train_test_split(    X, y, test_size=0.2, random_state=42)
+```
+
+The dataset is divided into:
+
+- 80% training data.
+- 20% testing data.
+
+Why? To train the model on one part and test its performance on unseen data.
+
+### Step 5: Feature Scaling
+
+```
+scaler = StandardScaler()X_train_scaled = scaler.fit_transform(X_train)X_test_scaled = scaler.transform(X_test)
+```
+
+Feature scaling brings numerical features to a similar scale.
+
+Why use StandardScaler?
+
+It transforms data to have approximately:
+
+- Mean = 0
+- Standard deviation = 1
+
+`fit_transform()` learns scaling values and transforms training data.
+
+`transform()` applies the same scaling to testing data.
+
+### Step 6: Train the model
+
+```
+model = GaussianNB()model.fit(X_train_scaled, y_train)y_pred = model.predict(X_test_scaled)
+```
+
+- `GaussianNB()` creates a Naive Bayes classifier.
+- `fit()` trains the model.
+- `predict()` predicts flower varieties.
+
+### Step 7: Confusion Matrix
+
+```
+cm = confusion_matrix(y_test, y_pred,                      labels=model.classes_)sns.heatmap(cm, annot=True, cmap='Blues', fmt='d')plt.show()
+```
+
+A confusion matrix compares actual predictions with predicted results.
+
+[turing.com](https://www.turing.com/kb/how-machine-learning-can-be-used-for-multiclass-classification-in-python?utm_source=chatgpt.com)
+
+It helps identify:
+
+- Correct predictions.
+- Incorrect predictions.
+- Which classes are confused with each other.
+
+### Step 8: Calculate performance
+
+```
+accuracy = accuracy_score(y_test, y_pred)precision = precision_score(    y_test, y_pred, average='macro')recall = recall_score(    y_test, y_pred, average='macro')error_rate = 1 - accuracy
+```
+
+Your notebook gives the following results:
+
+Your practical output
+
+# 1.00
+
+Accuracy (100%)
+
+# 0.00
+
+Error Rate (0%)
+
+# 1.00
+
+Precision (100%)
+
+# 1.00
+
+Recall (100%)
+
+All reported metrics = 100%
+
+Note: These are the results recorded in your notebook, not a guarantee of performance on new data.
+
+## 3. Most Important Viva Questions and Answers
+
+These are the questions you should prepare first.
+
+Q1. What is Data Analytics?
+
+Data Analytics is the process of examining data to find useful information and make decisions.
+
+Q2. What is Machine Learning?
+
+Machine Learning is a technology that allows computers to learn from data and make predictions without being explicitly programmed for every situation.
+
+Q3. What is the Iris dataset?
+
+It is a dataset containing flower measurements of three Iris species: Setosa, Versicolor and Virginica.
+
+Q4. What is Gaussian Naive Bayes?
+
+It is a supervised machine learning classification algorithm based on Bayes' theorem. It assumes numerical features follow a Gaussian (normal) distribution.
+
+Q5. Why is it called Naive Bayes?
+
+Because it assumes that input features are conditionally independent of each other given the class.
+
+Q6. What is supervised learning?
+
+Learning using labelled data, where both input and correct output are provided.
+
+Q7. What is classification?
+
+Classification means predicting a category or class, such as Setosa or Virginica.
+
+Q8. What is train-test splitting?
+
+It divides data into training and testing sets to evaluate the model.
+
+Q9. What is StandardScaler?
+
+It standardizes numerical data by removing the mean and scaling to unit variance.
+
+Q10. What is accuracy?
+
+Accuracy measures the percentage of correctly predicted results.
+
+\\[ Accuracy=\frac{Correct\ Predictions}{Total\ Predictions} \\]
+
+Q11. What is precision?
+
+Precision tells us how many positive predictions are actually correct.
+
+\\[ Precision=\frac{TP}{TP+FP} \\]
+
+Q12. What is recall?
+
+Recall measures how many actual positive cases were correctly identified.
+
+\\[ Recall=\frac{TP}{TP+FN} \\]
+
+Q13. What is error rate?
+
+It represents the percentage of incorrect predictions.
+
+\\[ Error\ Rate=1-Accuracy \\]
+
+Q14. What is a confusion matrix?
+
+It is a table used to compare actual and predicted classifications.
+
+Q15. What is the difference between fit() and predict()?
+
+- `fit()` trains the model.
+- `predict()` predicts results using the trained model.
+
+## 4. More Important Questions
+
+| Question                       | Short answer                                                                  |
+| ------------------------------ | ----------------------------------------------------------------------------- |
+| What is Pandas?                | Python data analysis library.                                                 |
+| What is NumPy?                 | Numerical computing library.                                                  |
+| What is Seaborn?               | Statistical visualization library.                                            |
+| What is Matplotlib?            | Graph plotting library.                                                       |
+| What is a feature?             | Input variable.                                                               |
+| What is a label?               | Expected output.                                                              |
+| What is Gaussian distribution? | Bell-shaped normal distribution.                                              |
+| What is a classifier?          | Algorithm that predicts categories.                                           |
+| What is `test_size=0.2`?       | 20% testing data.                                                             |
+| What is `random_state=42`?     | Makes the random split reproducible.                                          |
+| What is macro average?         | Calculates each class's metric separately and takes their unweighted average. |
+| What is `axis=1`?              | Refers to columns.                                                            |
+
+## 5. Test yourself – Mock Viva
+
+Let's practice like an actual college examiner. I'll ask one question at a time. You answer, and I'll correct your answer and explain it.
+
+Viva practice
+
+Question 1/8
+
+What is the main aim of your practical?
+
+To classify Iris flowers
+
+To create a website
+
+To predict stock prices
+
+To process images
+
+Previous
+
+Check answer
+
+Answer each question before moving to the next one.
+
+Viva tip: Remember these five things especially: Iris dataset, Gaussian Naive Bayes, train-test split, StandardScaler, and confusion matrix. These are central to your practical.
+
+Confusion Matrix – Iris Flower Classification
+This image shows a Confusion Matrix for the Iris Dataset using a Machine Learning classification model.
+
+The model predicts which type of Iris flower belongs to one of three classes:
+1. Setosa
+2. Versicolor
+3. Virginica
+Let's understand it step by step for your practical viva.
+1. Understanding your Confusion Matrix
+Your output:
+Confusion Matrix
+	Setosa	Versicolor	Virginica
+Setosa	10 Correct	0	0
+Versicolor	0	9 Correct	0
+Virginica	0	0	11 Correct
+
+Rows = Actual classes | Columns = Predicted classes
+What does this result mean?
+- Setosa: 10 flowers correctly classified.
+- Versicolor: 9 flowers correctly classified.
+- Virginica: 11 flowers correctly classified.
+- No flowers were incorrectly classified.
+Perfect classification
+Your model correctly predicted all 30 test samples.
+2. Understanding the Python code
+Step 1: Prediction
+y_pred = model.predict(X_test_scaled)
+
+
+
+- model.predict() predicts the flower category.
+- X_test_scaled contains scaled testing data.
+- y_pred stores predicted flower categories.
+Step 2: Create confusion matrix
+cm = confusion_matrix(    y_test,    y_pred,    labels=model.classes_)
+
+
+
+- confusion_matrix() compares actual and predicted values.
+- y_test contains actual flower categories.
+- y_pred contains predicted categories.
+- labels specifies the class order.
+Step 3: Convert into DataFrame
+cm_df = pd.DataFrame(    cm,    index=model.classes_,    columns=model.classes_)
+
+
+
+Converts the confusion matrix into a Pandas DataFrame with class names.
+Step 4: Visualize the matrix
+sns.heatmap(    cm_df,    annot=True,    cmap='Blues',    fmt='d')
+
+
+
+Code	Meaning
+sns.heatmap()	Creates heatmap
+cm_df	Confusion matrix data
+annot=True	Shows numbers
+cmap='Blues'	Blue colour scheme
+fmt='d'	Displays integer values
+
+3. Accuracy, Precision, Recall and Error Rate
+Your notebook calculates these metrics:
+accuracy = accuracy_score(y_test, y_pred)precision = precision_score(    y_test, y_pred, average='macro')recall = recall_score(    y_test, y_pred, average='macro')error_rate = 1 - accuracy
+
+
+
+Let's understand them.
+Metric	Result
+Accuracy	100%
+Error Rate	0%
+Precision (Macro)	100%
+Recall (Macro)	100%
+
+Why are all values 100%?
+
+Because all 30 testing samples were classified correctly.
+4. What is Macro Average?
+This is important for viva.
+
+Macro average calculates the metric separately for each class and then takes the average.
+
+For example:
+\[
+Macro\ Precision =
+\frac{P_1+P_2+P_3}{3}
+\]
+
+It gives equal importance to all three flower classes.
+5. Important viva questions
+Q1. What is the Iris dataset?
+
+It is a dataset containing measurements of three types of Iris flowers.
+
+Q2. What are the three classes?
+
+Setosa, Versicolor and Virginica.
+
+Q3. What is classification?
+
+Classification is a Machine Learning technique used to predict categories or classes.
+
+Q4. What is model.predict()?
+
+It predicts output classes using a trained model.
+
+Q5. What is X_test_scaled?
+
+It contains scaled testing input features.
+
+Q6. Why do we use feature scaling?
+
+To bring features into a similar numerical range.
+
+Q7. Why do we use a confusion matrix?
+
+To evaluate correct and incorrect classifications.
+
+Q8. What does the diagonal represent?
+
+Correct predictions.
+
+Q9. What does zero outside the diagonal mean?
+
+There are no incorrect classifications in the test results.
+
+Q10. What is macro average?
+
+It calculates a metric for each class and takes their average.
+
+Q11. What is the total number of test samples?
+
+30 samples (10 + 9 + 11).
+
+Q12. What is the model accuracy?
+
+100%.
+
+6. Final viva revision
+Remember these points:
+- Dataset: Iris Dataset.
+- Classes: Setosa, Versicolor, Virginica.
+- Algorithm: Your screenshot does not show the model name.
+- Testing samples: 30.
+- Correct predictions: 30.
+- Incorrect predictions: 0.
+- Accuracy: 100%.
+- Error rate: 0%.
+Best answer to tell your examiner:
+
+"This is a confusion matrix for Iris flower classification. Our model classifies three flower categories: Setosa, Versicolor and Virginica. It correctly predicts all 30 testing samples, with 100% accuracy and 0% error rate."
